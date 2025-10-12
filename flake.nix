@@ -24,5 +24,15 @@
     };
   };
 
-  outputs = flakes: {};
+  outputs = { self, flake-parts, ... }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
+
+      imports = [
+        inputs.home-manager.flakeModules.home-manager # does support flake-parts
+
+        ./lib
+        ./homes
+      ];
+    };
 }
