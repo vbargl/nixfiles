@@ -13,82 +13,15 @@
 		];
 	};
 
-	programs = {
-		fish.enable = true;
+	imports = [
+		"${self}/common/home-manager/programs/cli/minimal.nix"
+		"${self}/common/home-manager/programs/cli/dev.nix"
+		"${self}/common/home-manager/programs/cli/network.nix"
 
-		helix = {
-			enable = true;
-			defaultEditor = true;
-		};
-
-		zellij = {
-			enable = true;
-			enableFishIntegration = true;
-		};
-
-		# enable with update to 25.11
-		# jjui = {
-		#   enable = true;
-		# };
-
-		direnv = {
-			enable = true;
-			nix-direnv.enable = true;
-		};
-	};
-
-	home.packages = with pkgs; [
-		jujutsu
-		git
-		lazygit
-		nixd
-
-		moreutils
-		nmap
-		curl
-		lf
-		fzf
-		rclone
-		dasel
-		bat
-		htop
-		gtrash
-		zip
-		unzip
-		fd
-		bc
-		less
-
-		zerotierone
-		snx-rs
-		# nordvpn (when added)
-		
-		keepassxc # password manager 
-		winbox4   # microtik manager
-		rustdesk  # remote desktop manager 
-		
-		vscode
-		jetbrains.idea-ultimate
-		jetbrains.idea-community
-		postman
-		realvnc-vnc-viewer
-		remmina
-		google-chrome
-		p11-kit
-		
-		steam     # gaming platform
-		moonlight # streaming service for games
-		
-		vlc # robust media player
-		mpv # simple media player
-		feh # simple photo viewer
-		
-		walker      # launcher
-		firefox     # browser
-		thunderbird # email
-		peazip      # archive manager
-		waybar		  # status bar
-		mako		    # notification daemon
-		spotify		  # music streaming
+		"${self}/common/home-manager/programs/gui/minimal.nix"
+		"${self}/common/home-manager/programs/gui/daily.nix"
+		"${self}/common/home-manager/programs/gui/dev.nix"
+		"${self}/common/home-manager/programs/gui/games.nix"
+		"${self}/common/home-manager/programs/gui/media.nix"
 	];
 }
