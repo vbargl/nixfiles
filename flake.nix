@@ -33,6 +33,7 @@
 
         ./lib
         ./homes
+        ./overlays
       ];
     };
 }
