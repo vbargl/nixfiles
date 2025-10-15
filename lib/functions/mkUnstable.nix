@@ -1,9 +1,9 @@
 { inputs, ... }:
 let
-  inherit (inputs) self nixpkgs;
+  inherit (inputs) self nixunstable;
 in
 {
-  lib.mkPkgs = system: (import nixpkgs { 
+  lib.mkUnstable = system: (import nixunstable { 
     inherit system; 
     config = import "${self}/nixpkgs/config.nix"; 
   });

@@ -3,8 +3,13 @@ let
   linux = "x86_64-linux";
 in
 {
-  flake.homeConfigurations = {
-    desktop = self.lib.mkHome linux [ ./desktop ];
-    minimal = self.lib.mkHome linux [ ./minimal ];
+  homeConfigurations = {
+    minimal = self.lib.mkHome linux {
+      purpose = [ "conectivity" ];
+    };
+    desktop = self.lib.mkHome linux {
+      environment.capabilities = [ "gui" ];
+      purpose = [ "daily" "dev" "connectivity" "media" "games" ];
+    };
   };
 }

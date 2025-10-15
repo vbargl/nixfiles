@@ -1,0 +1,3 @@
+[
+  ./overlays/snx-rs.nix
+]
