@@ -3,11 +3,11 @@ let
   hasMediaPurpose  = builtins.elem "media" config.purpose;
   hasGuiCapabiltiy = builtins.elem "gui" config.environment.capabilities;
 
-  pkgsSet = [
-		pkgs.vlc     # robust media player
-		pkgs.mpv     # simple media player
-		pkgs.feh     # simple photo viewer
-    pkgs.spotify # music streaming
+  pkgsSet = with pkgs; [
+		vlc     # robust media player
+		mpv     # simple media player
+		feh     # simple photo viewer
+    spotify # music streaming
   ];
 in
 {

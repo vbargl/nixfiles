@@ -1,31 +1,31 @@
 { lib, pkgs, config, ... }: 
 let
-  hasGuiCapabilities = builtins.elem "gui" config.environment.capabilities;
+  hasGuiCapability = builtins.elem "gui" config.environment.capabilities;
   
-  pkgsSet = {
+  pkgsSet = with pkgs; {
     cli = [
-      pkgs.moreutils
-      pkgs.nmap
-      pkgs.curl
-      pkgs.xplr
-      pkgs.fzf
-      pkgs.rclone
-      pkgs.dasel
-      pkgs.bat
-      pkgs.htop
-      pkgs.gtrash
-      pkgs.zip
-      pkgs.unzip
-      pkgs.fd
-      pkgs.bc
-      pkgs.less
+      moreutils
+      nmap
+      curl
+      xplr
+      fzf
+      rclone
+      dasel
+      bat
+      htop
+      gtrash
+      zip
+      unzip
+      fd
+      bc
+      less
     ];
 
     gui = [
-  		pkgs.walker      # launcher
-  		pkgs.firefox     # browser
-  		pkgs.thunderbird # email
-  		pkgs.peazip      # archive manager
+  		walker      # launcher
+  		firefox     # browser
+  		thunderbird # email
+  		peazip      # archive manager
   		# waybar		  # status bar
   		# mako		    # notification daemon
     ];
@@ -52,6 +52,6 @@ in
 
   home.packages = lib.mkMerge [
     pkgsSet.cli
-    (lib.mkIf hasGuiCapabilities pkgsSet.gui)
+    (lib.mkIf hasGuiCapability pkgsSet.gui)
   ];
 }

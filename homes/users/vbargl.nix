@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  nixpkgs.config = import "${self}/nixpkgs/config.nix";
+  nixpkgs.config = self.config.nixpkgs;
 
   home = {
     stateVersion = "25.05";

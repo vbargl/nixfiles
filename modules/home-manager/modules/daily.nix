@@ -3,10 +3,10 @@ let
   hasDevPurpose    = builtins.elem "daily" config.purpose;
   hasGuiCapability = builtins.elem "gui" config.environment.capabilities;
 
-  pkgsSet = [
-    pkgs.keepassxc # password manager 
-    pkgs.winbox4   # microtik manager
-		pkgs.rustdesk  # remote desktop manager 
+  pkgsSet = with pkgs; [
+    keepassxc # password manager 
+    winbox4   # microtik manager
+		rustdesk  # remote desktop manager 
   ];
 in
 {

@@ -158,7 +158,7 @@ let
   eval = inputs: definition:
     fix (self:
       let
-        context  = { inherit self inputs ; };
+        context  = { inherit self inputs lite; };
         payloads = expand context definition;
         merged   = mergeAll payloads;
       in

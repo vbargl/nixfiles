@@ -2,12 +2,10 @@
 let
   hasConnectivityPurpose = builtins.elem "connectivity" config.purpose;
 
-  pkgsSet = [
-    pkgs.zerotierone
-    pkgs.snx-rs
-
-    # TODO: when https://github.com/NixOS/nixpkgs/pull/439308 gets merged
-    # pkgs.nordvpn
+  pkgsSet = with pkgs; [
+    zerotierone
+    snx-rs
+    nordvpn
   ];
 in
 {

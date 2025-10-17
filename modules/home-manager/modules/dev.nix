@@ -3,23 +3,23 @@ let
   hasDevPurpose    = builtins.elem "dev" config.purpose;
   hasGuiCapability = builtins.elem "gui" config.environment.capabilities;
   
-  pkgsSet = {
+  pkgsSet = with pkgs; {
     cli = [
-      pkgs.jujutsu
-      pkgs.git
-      pkgs.lazygit
-      pkgs.nixd
+      jujutsu
+      git
+      lazygit
+      nixd
     ];
     
     gui = [
-  		pkgs.vscode
-  		pkgs.jetbrains.idea-ultimate
-  		pkgs.jetbrains.idea-community
-  		pkgs.postman
-  		pkgs.realvnc-vnc-viewer
-  		pkgs.remmina
-  		pkgs.google-chrome
-  		pkgs.p11-kit
+  		vscode
+  		jetbrains.idea-ultimate
+  		jetbrains.idea-community
+  		postman
+  		realvnc-vnc-viewer
+  		remmina
+  		google-chrome
+  		p11-kit
   	];
   };
 in
