@@ -12,7 +12,7 @@
   
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    lite.url = "path:./internal/lite";
+    lite.url = "github:vbargl/nix-lite/v1.0.0";
     
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
@@ -25,7 +25,7 @@
 
     # custom packages
     different-error.url = "github:different-error/nixpkgs/nordvpn";
-    unstable.url = "github:nixos/nixpkgs";
+    unstable.url        = "github:nixos/nixpkgs";
   };
 
   outputs = { lite, ... }@inputs:
