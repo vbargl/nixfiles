@@ -1,27 +1,29 @@
-{ self, inputs, ... }:
+{ self, inputs, lite }@moduleInputs:
 let
   flake = inputs.self;
   inherit (inputs) home-manager nixpkgs;
+
+  mkPkgs = system: self.lib.importPkgs nixpkgs { inherit system; };
+
+  vbarglModule = import "${flake}/homes/users/vbargl.nix" moduleInputs;
 in
 {
   lib.mkHome = system: config:
+    let
+      pkgs = mkPkgs system;
+      pkgsAndOverlay = self.packages.${system};
+    in
     home-manager.lib.homeManagerConfiguration {
-      # Code below does not really work.
-      # I though home-manager will respect it
-      # but unfortunately it does not.
-      # It is passed as extraSpecialArgs
-      # 
-      # pkgs = self.packages.${system};
-      pkgs = self.lib.importPkgs nixpkgs { inherit system; };
+      inherit pkgs;
        
       extraSpecialArgs = {
         self = flake;
-        pkgs = self.packages.${system};
+        pkgs = pkgsAndOverlay;
       };
       
       modules = [
         "${flake}/modules/home-manager"
-        "${flake}/homes/users/vbargl.nix"
+        vbarglModule
         { inherit config; }
       ];
     };
