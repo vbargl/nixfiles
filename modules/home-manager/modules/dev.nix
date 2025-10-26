@@ -9,6 +9,7 @@ let
       git
       lazygit
       nixd
+      xvfb-run
     ];
     
     gui = [

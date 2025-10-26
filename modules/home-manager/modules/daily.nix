@@ -12,5 +12,14 @@ in
 {
   config = lib.mkIf (hasDevPurpose && hasGuiCapability) {
     home.packages = pkgsSet;
+
+    services.syncthing = {
+    	enable = true;
+    	package = pkgs.syncthing;
+    	extraOptions = [
+    	  "--config" "/home/vbargl/.config/syncthing"
+    	  "--data" "/home/vbargl/Sync"
+    	];
+    };
   };
 }
