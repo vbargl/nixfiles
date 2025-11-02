@@ -9,16 +9,12 @@ let
 in
 {
   lib.mkHome = system: config:
-    let
-      pkgs = mkPkgs system;
-      pkgsAndOverlay = self.packages.${system};
-    in
     home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
+      pkgs = mkPkgs system;
        
       extraSpecialArgs = {
         self = flake;
-        pkgs = pkgsAndOverlay;
+        pkgs = self.packages.${system};
       };
       
       modules = [

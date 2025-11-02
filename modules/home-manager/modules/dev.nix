@@ -10,10 +10,12 @@ let
       lazygit
       nixd
       xvfb-run
+  		cursor-cli
     ];
     
     gui = [
   		vscode
+  		code-cursor
   		jetbrains.idea-ultimate
   		jetbrains.idea-community
   		postman

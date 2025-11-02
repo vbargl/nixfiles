@@ -1,15 +1,23 @@
-{ self, inputs, ... }:
-let
-  inherit (inputs) nixpkgs unstable;
-  flake = inputs.self;
-in
+{ self, ... }:
 {
   nixpkgs.config = self.config.nixpkgs;
 
   nix.registry = {
-    "vbargl".flake = flake;
-    "nixpkgs".flake = nixpkgs;
-    "unstable".flake = unstable;
+    "vbargl".to = {
+      type = "github";
+      owner = "vbargl";
+      repo = "nixfiles";
+    };
+    "nixpkgs".to = {
+      type = "github";
+      owner = "nixos";
+      repo = "nixpkgs";
+    };
+    "unstable".to = {
+      type = "github";
+      owner = "nixos";
+      repo = "nixpkgs";
+    };
   };
 
   home = {
