@@ -11,6 +11,7 @@ let
       nixd
       xvfb-run
   		cursor-cli
+  		ngrok
     ];
     
     gui = [
