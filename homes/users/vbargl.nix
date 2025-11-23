@@ -3,7 +3,6 @@
   nixpkgs.config = self.config.nixpkgs;
 
   home.activation.setupNixRegistry = ''
-    nix registry add vbargl github:vbargl/nixfiles
     nix registry add nixpkgs github:nixos/nixpkgs/${inputs.unstable.rev}
     nix registry add nixos github:nixos/nixpkgs/${inputs.nixpkgs.rev}
   '';
