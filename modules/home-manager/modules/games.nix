@@ -4,8 +4,8 @@ let
   hasGuiCapability = builtins.elem "gui" config.environment.capabilities;
 
   pkgsSet = with pkgs; [
-    steam     # gaming platform
-    moonlight # streaming service for games
+    steam        # gaming platform
+    moonlight-qt # streaming service for games
   ];
 in
 {
