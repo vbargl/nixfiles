@@ -17,8 +17,8 @@ let
     gui = [
   		vscode
   		code-cursor
-  		jetbrains.idea-ultimate
-  		jetbrains.idea-community
+  		jetbrains.idea
+  		jetbrains.goland
   		postman
   		realvnc-vnc-viewer
   		remmina
