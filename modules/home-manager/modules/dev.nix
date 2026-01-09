@@ -10,7 +10,7 @@ let
       lazygit
       nixd
       xvfb-run
-  		cursor-cli
+  		claude-code
   		ngrok
     ];
     
