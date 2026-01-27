@@ -22,6 +22,7 @@ let
     ];
 
     gui = [
+      ghostty
   		walker      # launcher
   		firefox     # browser
   		thunderbird # email
