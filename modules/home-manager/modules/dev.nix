@@ -10,7 +10,6 @@ let
       lazygit
       nixd
       xvfb-run
-  		claude-code
   		ngrok
     ];
     
