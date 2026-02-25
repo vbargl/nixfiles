@@ -35,8 +35,6 @@ in
 {
   programs = {
     fish.enable = true;
-    nushell.enable = true;
-
     helix = {
       enable = true;
       defaultEditor = true;
