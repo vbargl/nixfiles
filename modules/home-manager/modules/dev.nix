@@ -7,6 +7,7 @@ let
     cli = [
       jujutsu
       git
+      git-credential-keepassxc
       lazygit
       nixd
       xvfb-run
