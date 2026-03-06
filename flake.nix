@@ -22,6 +22,14 @@
       url = "github:ryantm/age-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # custom packages
     different-error.url = "github:different-error/nixpkgs/nordvpn";
@@ -34,5 +42,7 @@
       ./lib
       ./homes
       ./packages
+      ./hosts
+      ./deploy.nix
     ];
 }
