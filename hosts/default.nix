@@ -5,5 +5,6 @@ in
 {
   nixosConfigurations = {
     ant = self.lib.mkHost linux ./ant;
+    peacock = self.lib.mkHost linux ./peacock;
   };
 }
