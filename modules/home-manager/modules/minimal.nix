@@ -7,7 +7,6 @@ let
       moreutils
       nmap
       curl
-      xplr
       fzf
       rclone
       dasel
@@ -27,8 +26,6 @@ let
   		firefox     # browser
   		thunderbird # email
   		peazip      # archive manager
-  		# waybar		  # status bar
-  		# mako		    # notification daemon
     ];
   };
 in
@@ -40,13 +37,21 @@ in
       defaultEditor = true;
     };
 
+    yazi.enable = true;
+
     zellij = {
       enable = true;
 
       # TODO: autostart in fish termina
       #       really want just completions only
-      #  
+      #
       # enableFishIntegration = true;
+    };
+
+    caelestia = lib.mkIf hasGuiCapability {
+      enable = true;
+      settings.services.useFahrenheit = false;
+      settings.services.useTwelveHourClock = false;
     };
   };
 

@@ -19,6 +19,7 @@ in
       
       modules = [
         "${flake}/modules/home-manager"
+        inputs.caelestia-shell.homeManagerModules.default
         vbarglModule
         { inherit config; }
       ];
