@@ -5,7 +5,7 @@ in
 {
   homeConfigurations = {
     minimal = self.lib.mkHome linux {
-      purpose = [ "conectivity" ];
+      purpose = [ "connectivity" ];
     };
     desktop = self.lib.mkHome linux {
       environment.capabilities = [ "gui" ];
