@@ -19,6 +19,9 @@ let
   		code-cursor
   		jetbrains.idea
   		jetbrains.goland
+  		jetbrains.rider
+  		jetbrains.webstorm
+  		android-studio
   		postman
   		realvnc-vnc-viewer
   		remmina
