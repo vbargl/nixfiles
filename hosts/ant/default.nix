@@ -45,6 +45,9 @@
   age.secrets.wifi-vodafone-psk = {
     file = ../../secrets/wifi-vodafone-psk.age;
   };
+  age.secrets.k3s-token = {
+    file = ../../secrets/k3s-token.age;
+  };
 
   time.timeZone = "Europe/Prague";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -52,11 +55,14 @@
   users.users.vbargl = {
     isNormalUser = true;
     hashedPassword = null;
+    shell = pkgs.nushell;
     extraGroups = [ "wheel" "networkmanager" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMFNlZYlDjje/aX9WSd0WyCvEQaqHvbX/5/IWvXkntdu bargl.vojtech.net"
     ];
   };
+
+  environment.shells = [ pkgs.nushell ];
 
   security.sudo.extraRules = [{
     users = [ "vbargl" ];
@@ -66,13 +72,65 @@
     }];
   }];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      nordvpn = (import inputs.different-error {
+        system = "x86_64-linux";
+        config = { allowUnfree = true; allowUnfreePredicate = _: true; };
+      }).nordvpn;
+      snx-rs = (import inputs.unstable {
+        system = "x86_64-linux";
+        config = { allowUnfree = true; allowUnfreePredicate = _: true; };
+      }).snx-rs;
+    })
+  ];
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.vbargl = {
+      imports = [ "${inputs.self}/modules/home-manager" ];
+      purpose = [ "connectivity" ];
+      programs.zellij.enableFishIntegration = false;
+      programs.nushell = {
+        enable = true;
+        extraLogin = ''
+          if "ZELLIJ" not-in $env {
+            zellij attach -c
+            exit
+          }
+        '';
+      };
+      home = {
+        stateVersion = "25.11";
+        username = "vbargl";
+        homeDirectory = "/home/vbargl";
+        sessionPath = [ "$HOME/.local/bin" ];
+      };
+    };
+  };
+
+  services.k3s = {
+    enable = true;
+    role = "server";
+    tokenFile = config.age.secrets.k3s-token.path;
+    extraFlags = [ "--tls-san=172.27.27.9" ];
+  };
+
   services.udisks2.enable = true;
 
+  # Longhorn dependencies
+  services.openiscsi = {
+    enable = true;
+    name = "iqn.2026-03.net.barglvojtech:ant";
+  };
   environment.systemPackages = with pkgs; [
     vim
     htop
     curl
     git
+    nfs-utils
+    util-linux
   ];
 
   services.openssh = {
@@ -84,7 +142,7 @@
   };
 
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [ 22 6443 ];
 
   system.stateVersion = "25.11";
 }

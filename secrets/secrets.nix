@@ -7,4 +7,5 @@ let
 in
 {
   "wifi-vodafone-psk.age".publicKeys = [ vbargl ant ];
+  "k3s-token.age".publicKeys = [ vbargl ant ];
 }
