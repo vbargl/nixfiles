@@ -52,6 +52,7 @@ in
       enable = true;
       settings.services.useFahrenheit = false;
       settings.services.useTwelveHourClock = false;
+      settings.bar.status.showAudio = true;
     };
   };
 

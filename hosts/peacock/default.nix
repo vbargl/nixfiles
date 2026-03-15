@@ -80,6 +80,14 @@
   };
   hardware.alsa.enablePersistence = true;
 
+  # Hardware acceleration
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+    ];
+  };
+
   # Bluetooth
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
@@ -100,6 +108,13 @@
     }];
   }];
 
+  security.wrappers.gsr-kms-server = {
+    source = "${pkgs.gpu-screen-recorder}/bin/gsr-kms-server";
+    owner = "root";
+    group = "root";
+    capabilities = "cap_sys_admin+ep";
+  };
+
   # Services
   services.automatic-timezoned.enable = true;
   services.geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
@@ -109,6 +124,14 @@
   services.power-profiles-daemon.enable = true;
   services.thermald.enable = true;
   services.printing.enable = true;
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
+  boot.loader.systemd-boot.configurationLimit = 10;
 
   # nix-ld
   programs.nix-ld = {
@@ -166,7 +189,12 @@
     hypridle
     hyprsysteminfo
     hyprcursor
-    hyprshot
+    grim
+    slurp
+    swappy
+    gpu-screen-recorder
+    libnotify
+    kdePackages.dolphin
     xdg-desktop-portal-hyprland
     brightnessctl
     playerctl
@@ -195,7 +223,7 @@
       ];
       environment.capabilities = [ "gui" ];
       purpose = [ "daily" "dev" "connectivity" "media" "games" ];
-      programs.caelestia.settings.general.apps.explorer = [ "yazi" ];
+      programs.caelestia.settings.general.apps.explorer = [ "dolphin" ];
       programs.caelestia.settings.general.apps.terminal = [ "ghostty" ];
 
       systemd.user.services.caelestia-disable-gamemode = {
@@ -216,6 +244,12 @@
         Install.WantedBy = [ "caelestia.service" ];
       };
       home.file."Pictures/Wallpapers/wallpaper.jpg".source = ./wallpapers/wallpaper.jpg;
+
+      services.home-manager.autoExpire = {
+        enable = true;
+        frequency = "weekly";
+        timestamp = "-30 days";
+      };
     };
   };
 
