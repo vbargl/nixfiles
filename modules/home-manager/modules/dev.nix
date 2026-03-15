@@ -14,6 +14,7 @@ let
   		ngrok
       kind
       nodejs
+      pinchtab
     ];
     
     gui = [

@@ -32,6 +32,12 @@ in
 {
   programs = {
     fish.enable = true;
+    carapace = {
+      enable = true;
+      enableNushellIntegration = true;
+      enableFishIntegration = true;
+    };
+    carapace-specs.enable = true;
     helix = {
       enable = true;
       defaultEditor = true;

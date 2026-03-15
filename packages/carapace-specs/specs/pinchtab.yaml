@@ -1,0 +1,4 @@
+name: pinchtab
+description: High-performance browser automation bridge and multi-instance orchestrator
+completion:
+  positionalany: ["$carapace.bridge.Cobra([pinchtab])"]
