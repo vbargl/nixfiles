@@ -49,5 +49,6 @@
       ./packages
       ./hosts
       ./deploy.nix
+      ./overlays.nix
     ];
 }
