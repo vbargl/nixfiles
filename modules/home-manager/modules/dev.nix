@@ -12,6 +12,8 @@ let
       nixd
       xvfb-run
   		ngrok
+      kind
+      nodejs
     ];
     
     gui = [

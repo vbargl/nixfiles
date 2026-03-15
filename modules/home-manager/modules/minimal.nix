@@ -11,7 +11,7 @@ let
       rclone
       dasel
       bat
-      htop
+      btop
       gtrash
       zip
       unzip

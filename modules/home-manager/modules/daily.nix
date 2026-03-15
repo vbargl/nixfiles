@@ -4,9 +4,10 @@ let
   hasGuiCapability = builtins.elem "gui" config.environment.capabilities;
 
   pkgsSet = with pkgs; [
-    keepassxc # password manager 
-    winbox4   # microtik manager
-		rustdesk  # remote desktop manager 
+    keepassxc                # password manager
+    winbox4                  # microtik manager
+		rustdesk                 # remote desktop manager
+    onlyoffice-desktopeditors # office suite
   ];
 in
 {

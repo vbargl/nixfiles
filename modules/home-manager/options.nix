@@ -3,7 +3,7 @@ let
   inherit (lib) types mkOption;
 
   environmentCapabilitiesSet = [
-    "gui" # for machines that 
+    "gui" # for machines that have a graphical environment
   ];
 
   purposeSet = [
@@ -11,8 +11,9 @@ let
     # If machine.capabilities contains "gui", minimal subset of packages
     # for GUI environment will also be included
 
-    "dev"          # for development,  see purpose/dev.nix
-    "connectivity" # vpn capabilities, see purpose/connectivity.nix
+    "dev"                # for development,         see purpose/dev.nix
+    "connectivity"       # vpn capabilities,        see purpose/connectivity.nix
+    "cluster-management" # k8s cluster mgmt tools,  see purpose/cluster-management.nix
 
     # These are only if machine.capabilities contains "gui",
     # as packages mentioned in this purpose-based configurations
