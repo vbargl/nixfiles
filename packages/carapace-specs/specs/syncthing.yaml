@@ -1,0 +1,4 @@
+name: syncthing
+description: Continuous file synchronization program
+completion:
+  positionalany: ["$carapace.bridge.Complete([syncthing])"]

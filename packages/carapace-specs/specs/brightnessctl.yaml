@@ -1,0 +1,31 @@
+name: brightnessctl
+description: Read and control device brightness
+flags:
+  -l, --list: List devices with available brightness controls
+  -q, --quiet: Suppress output
+  -p, --pretend: Do not perform write operations
+  -m, --machine-readable: Produce machine-readable output
+  -n, --min-value: Set minimum brightness, defaults to 1
+  -e, --exponent=: Changes percentage curve to exponential
+  -s, --save: Save previous state in a temporary file
+  -r, --restore: Restore previous saved state
+  -h, --help: Print help
+  -d, --device=: Specify device name (can be a wildcard)
+  -c, --class=: Specify device class
+  -V, --version: Print version and exit
+commands:
+  - name: info
+    aliases: ["i"]
+    description: Get device info
+  - name: get
+    aliases: ["g"]
+    description: Get current brightness of the device
+  - name: max
+    aliases: ["m"]
+    description: Get maximum brightness of the device
+  - name: set
+    aliases: ["s"]
+    description: Set brightness of the device
+completion:
+  flag:
+    --class: ["backlight", "leds"]

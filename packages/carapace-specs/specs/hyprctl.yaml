@@ -1,0 +1,86 @@
+name: hyprctl
+description: Hyprland compositor control utility
+flags:
+  -j: Output in JSON
+  -r: Refresh state after issuing command
+  --batch=: Execute a batch of commands, separated by ;
+  -i, --instance=: Use a specific instance (signature or index)
+  -q, --quiet: Disable the output of hyprctl
+commands:
+  - name: activewindow
+    description: Gets the active window name and its properties
+  - name: activeworkspace
+    description: Gets the active workspace and its properties
+  - name: animations
+    description: Gets the current config'd info about animations and beziers
+  - name: binds
+    description: Lists all registered binds
+  - name: clients
+    description: Lists all windows with their properties
+  - name: configerrors
+    description: Lists all current config parsing errors
+  - name: cursorpos
+    description: Gets the current cursor position in global layout coordinates
+  - name: decorations
+    description: Lists all decorations and their info
+  - name: devices
+    description: Lists all connected keyboards and mice
+  - name: dismissnotify
+    description: Dismisses all or up to AMOUNT notifications
+  - name: dispatch
+    description: Issue a dispatch to call a keybind dispatcher with arguments
+    completion:
+      positional:
+        - ["exec", "execr", "pass", "killactive", "closewindow", "workspace", "movetoworkspace", "movetoworkspacesilent", "togglefloating", "fullscreen", "fakefullscreen", "dpms", "pin", "movefocus", "movewindow", "swapwindow", "centerwindow", "resizeactive", "moveactive", "resizewindowpixel", "movewindowpixel", "cyclenext", "swapnext", "focuswindow", "focusmonitor", "splitratio", "toggleopaque", "movecursortocorner", "movecursor", "renameworkspace", "exit", "forcerendererreload", "movecurrentworkspacetomonitor", "focusworkspaceoncurrentmonitor", "moveworkspacetomonitor", "swapactiveworkspaces", "bringactivetotop", "alterzorder", "togglespecialworkspace", "focusurgentorlast", "togglegroup", "changegroupactive", "focuscurrentorlast", "lockgroups", "lockactivegroup", "moveintogroup", "moveoutofgroup", "movewindoworgroup", "movegroupwindow", "denywindowfromgroup", "setignoregrouplock", "global", "submap"]
+  - name: getoption
+    description: Gets the config option status (values)
+  - name: globalshortcuts
+    description: Lists all global shortcuts
+  - name: hyprpaper
+    description: Issue a hyprpaper request
+  - name: hyprsunset
+    description: Issue a hyprsunset request
+  - name: instances
+    description: Lists all running instances of Hyprland
+  - name: keyword
+    description: Issue a keyword to call a config keyword dynamically
+  - name: kill
+    description: Get into kill mode - kill an app by clicking on it
+  - name: layers
+    description: Lists all the surface layers
+  - name: layouts
+    description: Lists all layouts available
+  - name: monitors
+    description: Lists active outputs with their properties
+  - name: notify
+    description: Sends a notification using Hyprland notification system
+  - name: output
+    description: Add and remove fake outputs
+  - name: plugin
+    description: Issue a plugin request
+  - name: reload
+    description: Force reload the config
+  - name: rollinglog
+    description: Prints tail of the log
+    flags:
+      -f, --follow: Follow the log output
+  - name: setcursor
+    description: Sets the cursor theme and reloads the cursor manager
+  - name: seterror
+    description: Sets the hyprctl error string
+  - name: setprop
+    description: Sets a window property
+  - name: getprop
+    description: Gets a window property
+  - name: splash
+    description: Get the current splash
+  - name: switchxkblayout
+    description: Sets the xkb layout index for a keyboard
+  - name: systeminfo
+    description: Get system info
+  - name: version
+    description: Prints the hyprland version
+  - name: workspacerules
+    description: Lists all workspace rules
+  - name: workspaces
+    description: Lists all workspaces with their properties

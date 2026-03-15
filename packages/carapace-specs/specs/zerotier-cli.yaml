@@ -1,0 +1,28 @@
+name: zerotier-cli
+description: ZeroTier One command line interface
+flags:
+  -h: Display help
+  -v: Show version
+  -j: Display full raw JSON output
+  -D=: ZeroTier home path for parameter auto-detect
+  -p=: HTTP port (default auto)
+  -T=: Authentication token (default auto)
+commands:
+  - name: info
+    description: Display status info
+  - name: listpeers
+    description: List all peers
+  - name: peers
+    description: List all peers (prettier)
+  - name: listnetworks
+    description: List all networks
+  - name: join
+    description: Join a network
+  - name: leave
+    description: Leave a network
+  - name: set
+    description: Set a network setting
+  - name: get
+    description: Get a network setting
+  - name: dump
+    description: Debug settings dump for support

@@ -1,0 +1,4 @@
+name: rclone
+description: Sync files to and from cloud storage
+completion:
+  positionalany: ["$carapace.bridge.Cobra([rclone])"]

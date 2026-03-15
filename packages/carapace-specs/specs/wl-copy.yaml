@@ -1,0 +1,12 @@
+name: wl-copy
+description: Copy content to the Wayland clipboard
+flags:
+  -o, --paste-once: Only serve one paste request and then exit
+  -f, --foreground: Stay in the foreground instead of forking
+  -c, --clear: Instead of copying, clear the clipboard
+  -p, --primary: Use the "primary" clipboard
+  -n, --trim-newline: Do not copy the trailing newline character
+  -t, --type=: Override the inferred MIME type for the content
+  -s, --seat=: Pick the seat to work with
+  -v, --version: Display version info
+  -h, --help: Display help message

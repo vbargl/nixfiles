@@ -1,0 +1,60 @@
+name: less
+description: Opposite of more - file pager
+flags:
+  -a: Search skips current screen
+  -A: Search starts just after target line
+  -b=: Set buffer space for each file
+  -B: Disable automatic buffering for pipes
+  -c: Repaint from top line down
+  -C: Same as -c but clears first
+  -d: Suppress dumb terminal error messages
+  -D=: Set screen colors
+  -e: Quit at second end-of-file
+  -E: Quit at first end-of-file
+  -f: Force open non-regular files
+  -F: Quit if file fits on first screen
+  -g: Highlight only last search match
+  -G: Suppress all search highlighting
+  -h=: Set backward scroll limit
+  -i: Ignore case in searches that do not contain uppercase
+  -I: Ignore case in all searches
+  -j=: Set target line for searches and jumps
+  -J: Show status column
+  -k=: Use lesskey file
+  -K: Exit on Ctrl-C
+  -L: Suppress env variable warning
+  -m: Prompt with percent into file
+  -M: Prompt more verbosely
+  -n: Suppress line numbers
+  -N: Show line numbers
+  -o=: Copy input to log file
+  -O=: Copy input to log file (overwrite)
+  -p=: Start at first occurrence of pattern
+  -P=: Set prompt
+  -q: Quiet - no terminal bell
+  -Q: Totally quiet - never ring bell
+  -r: Display raw control characters
+  -R: Display only ANSI color escape sequences in raw form
+  -s: Squeeze consecutive blank lines
+  -S: Chop long lines (no wrapping)
+  -t=: Edit tag
+  -T=: Set tag file
+  -u: Send backspaces and carriage returns to terminal
+  -U: Treat backspaces and tabs as control characters
+  -V: Display version and exit
+  -w: Temporarily highlight first new line after forward movement
+  -W: Temporarily highlight first new line after any forward movement
+  -x=: Set tab stops
+  -X: Disable termcap init/deinit sequences
+  -y=: Set forward scroll limit
+  -z=: Set window size
+  --follow-name: Like tail -F - follow file by name
+  --help: Display help
+  --version: Display version
+completion:
+  flag:
+    -k: ["$files"]
+    -o: ["$files"]
+    -O: ["$files"]
+    -T: ["$files"]
+  positionalany: ["$files"]

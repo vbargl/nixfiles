@@ -1,0 +1,17 @@
+name: grim
+description: Grab images from a Wayland compositor
+flags:
+  -h: Show help message and quit
+  -s=: Set the output image scale factor
+  -g=: Set the region to capture
+  -t=: Set the output filetype
+  -q=: Set the JPEG filetype quality 0-100
+  -l=: Set the PNG filetype compression level 0-9
+  -o=: Set the output name to capture
+  -T=: Set the identifier of a foreign toplevel handle to capture
+  -c: Include cursors in the screenshot
+completion:
+  flag:
+    -t: ["png", "ppm", "jpeg"]
+  positional:
+    - ["$files"]

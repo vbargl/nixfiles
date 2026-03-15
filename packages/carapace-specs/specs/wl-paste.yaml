@@ -1,0 +1,11 @@
+name: wl-paste
+description: Paste content from the Wayland clipboard
+flags:
+  -n, --no-newline: Do not append a newline character
+  -l, --list-types: Instead of pasting, list the offered types
+  -p, --primary: Use the "primary" clipboard
+  -w, --watch=: Run a command each time the selection changes
+  -t, --type=: Override the inferred MIME type for the content
+  -s, --seat=: Pick the seat to work with
+  -v, --version: Display version info
+  -h, --help: Display help message

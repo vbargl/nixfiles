@@ -1,0 +1,76 @@
+name: zellij
+description: Terminal workspace with panes and tabs
+flags:
+  -c, --config=: Change where zellij looks for the configuration file
+  --config-dir=: Change where zellij looks for the configuration directory
+  -d, --debug: Specify emitting additional debug information
+  --data-dir=: Change where zellij looks for plugins
+  -h, --help: Print help information
+  -l, --layout=: Name of a predefined layout or path to a layout file
+  --max-panes=: Maximum panes on screen
+  -n, --new-session-with-layout=: Start a new session with given layout
+  -s, --session=: Specify name of a new session
+  -V, --version: Print version information
+commands:
+  - name: action
+    aliases: ["ac"]
+    description: Send actions to a specific session
+  - name: attach
+    aliases: ["a"]
+    description: Attach to a session
+    completion:
+      positionalany: ["$(_) list-sessions --no-formatting | cut -d' ' -f1"]
+  - name: convert-config
+    description: Convert config format
+  - name: convert-layout
+    description: Convert layout format
+  - name: convert-theme
+    description: Convert theme format
+  - name: delete-all-sessions
+    aliases: ["da"]
+    description: Delete all sessions
+  - name: delete-session
+    aliases: ["d"]
+    description: Delete a specific session
+    completion:
+      positionalany: ["$(_) list-sessions --no-formatting | cut -d' ' -f1"]
+  - name: edit
+    aliases: ["e"]
+    description: Edit file with default $EDITOR / $VISUAL
+    completion:
+      positionalany: ["$files"]
+  - name: kill-all-sessions
+    aliases: ["ka"]
+    description: Kill all sessions
+  - name: kill-session
+    aliases: ["k"]
+    description: Kill a specific session
+    completion:
+      positionalany: ["$(_) list-sessions --no-formatting | cut -d' ' -f1"]
+  - name: list-aliases
+    aliases: ["la"]
+    description: List existing plugin aliases
+  - name: list-sessions
+    aliases: ["ls"]
+    description: List active sessions
+  - name: options
+    description: Change the behaviour of zellij
+  - name: pipe
+    description: Send data to one or more plugins
+  - name: plugin
+    aliases: ["p"]
+    description: Load a plugin
+  - name: run
+    aliases: ["r"]
+    description: Run a command in a new pane
+  - name: setup
+    description: Setup zellij and check its configuration
+  - name: web
+    description: Run a web server to serve terminal sessions
+completion:
+  flag:
+    --config: ["$files"]
+    --config-dir: ["$directories"]
+    --data-dir: ["$directories"]
+    --layout: ["$files"]
+    --new-session-with-layout: ["$files"]

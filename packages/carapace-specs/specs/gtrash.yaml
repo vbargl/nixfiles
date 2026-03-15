@@ -1,0 +1,4 @@
+name: gtrash
+description: Trash CLI manager written in Go
+completion:
+  positionalany: ["$carapace.bridge.Cobra([gtrash])"]

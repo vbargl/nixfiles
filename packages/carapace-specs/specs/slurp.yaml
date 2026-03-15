@@ -1,0 +1,16 @@
+name: slurp
+description: Select a region in a Wayland compositor
+flags:
+  -h: Show help message and quit
+  -d: Display dimensions of selection
+  -b=: "Set background color (#rrggbbaa)"
+  -c=: "Set border color (#rrggbbaa)"
+  -s=: "Set selection color (#rrggbbaa)"
+  -B=: "Set option box color (#rrggbbaa)"
+  -F=: Set the font family for the dimensions
+  -w=: Set border weight
+  -f=: Set output format
+  -o: Select a display output
+  -p: Select a single point
+  -r: Restrict selection to predefined boxes
+  -a=: "Force aspect ratio (w:h)"

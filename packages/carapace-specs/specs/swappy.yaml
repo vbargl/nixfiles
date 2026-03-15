@@ -1,0 +1,12 @@
+name: swappy
+description: Wayland native snapshot editing tool
+flags:
+  -h, --help: Show help options
+  --help-all: Show all help options
+  -f, --file=: Load a file at a specific path
+  -o, --output-file=: Print the final surface to the given file when exiting
+  -v, --version: Print version and quit
+completion:
+  flag:
+    --file: ["$files"]
+    --output-file: ["$files"]

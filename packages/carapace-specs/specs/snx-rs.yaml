@@ -1,0 +1,63 @@
+name: snx-rs
+description: VPN client for Check Point security gateway
+flags:
+  -s, --server-name=: Server name
+  -m, --mode=: "Operation mode: standalone, command, info, enroll, renew"
+  -u, --user-name=: User name
+  -p, --password=: Password in base64-encoded form
+  -Y, --password-factor=: Numerical index of the password factor, 1..N
+  -c, --config-file=: Read parameters from config file
+  -l, --log-level=: "Enable logging to stdout: off, info, warn, error, debug, trace"
+  -d, --search-domains=: Additional search domains
+  -i, --ignore-search-domains=: Ignore specified search domains
+  -D, --dns-servers=: Additional DNS servers
+  -G, --ignore-dns-servers=: Ignore specified DNS servers
+  -Z, --set-routing-domains=: Treat received search domains as routing domains
+  -t, --default-route=: Set the default route through the tunnel
+  -n, --no-routing=: Ignore all routes from the acquired list
+  -a, --add-routes=: Additional routes through the tunnel
+  -I, --ignore-routes=: Ignore specified routes
+  -N, --no-dns=: Do not change DNS resolver configuration
+  -X, --ignore-server-cert=: Disable all certificate validations (NOT SECURE!)
+  -e, --tunnel-type=: "Tunnel type: ssl, ipsec"
+  -k, --ca-cert=: Custom CA certificates in PEM or DER format
+  -o, --login-type=: Login type
+  -y, --cert-type=: "Certificate authentication method: pkcs8, pkcs11, pkcs12, none"
+  -z, --cert-path=: Path to cert file
+  -x, --cert-password=: Password for PKCS12 or PIN for PKCS11
+  -w, --cert-id=: Certificate ID in hexadecimal form
+  -f, --if-name=: Interface name for tun or xfrm device
+  -K, --no-keychain=: Do not use OS keychain
+  -L, --ike-lifetime=: IPSec IKE lifetime in seconds
+  -W, --ike-persist=: Store IKE session to disk
+  -C, --client-mode=: Custom client mode
+  -A, --no-keepalive=: Disable IPSec keepalive packets
+  -R, --port-knock=: Enable port knock workaround for NAT-T probing
+  -P, --ip-lease-time=: Custom IP lease time in seconds
+  -Q, --disable-ipv6=: Disable IPv6 when default route is enabled
+  -M, --mtu=: Custom MTU for the tunnel interface
+  -T, --transport-type=: "IPSec transport type: auto, kernel, tcpt, udp"
+  -F, --mfa-code=: MFA code for non-interactive scripts
+  -b, --reg-key=: Registration key for certificate enrollment
+  -h, --help: Print help
+  -V, --version: Print version
+completion:
+  flag:
+    --mode: ["standalone", "command", "info", "enroll", "renew"]
+    --log-level: ["off", "info", "warn", "error", "debug", "trace"]
+    --tunnel-type: ["ssl", "ipsec"]
+    --cert-type: ["pkcs8", "pkcs11", "pkcs12", "none"]
+    --transport-type: ["auto", "kernel", "tcpt", "udp"]
+    --config-file: ["$files"]
+    --ca-cert: ["$files"]
+    --cert-path: ["$files"]
+    --default-route: ["true", "false"]
+    --no-routing: ["true", "false"]
+    --no-dns: ["true", "false"]
+    --ignore-server-cert: ["true", "false"]
+    --set-routing-domains: ["true", "false"]
+    --no-keychain: ["true", "false"]
+    --ike-persist: ["true", "false"]
+    --no-keepalive: ["true", "false"]
+    --port-knock: ["true", "false"]
+    --disable-ipv6: ["true", "false"]

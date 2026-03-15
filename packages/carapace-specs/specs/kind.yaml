@@ -1,0 +1,4 @@
+name: kind
+description: Tool for running local Kubernetes clusters using Docker
+completion:
+  positionalany: ["$carapace.bridge.Cobra([kind])"]

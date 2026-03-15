@@ -1,0 +1,21 @@
+name: nixd
+description: Nix language server
+flags:
+  --help: Display available options
+  --help-list: Display list of available options
+  --version: Display the version
+  --pretty: Pretty-print JSON output
+  --log=: "Verbosity of log messages: error, info, debug, verbose"
+  --config=: JSON-encoded initial configuration
+  --inlay-hints: Enable/Disable inlay-hints
+  --lit-test: Indicating that the server is running in lit-test mode
+  --nixos-options-expr=: Default expression interpreted as option declarations
+  --nixpkgs-expr=: Default expression interpreted as import nixpkgs
+  --nixpkgs-worker-stderr=: Writable file path for nixpkgs worker stderr
+  --option-worker-stderr=: Directory to write options worker stderr
+  --semantic-tokens: Enable/Disable semantic tokens
+completion:
+  flag:
+    --log: ["error", "info", "debug", "verbose"]
+    --nixpkgs-worker-stderr: ["$files"]
+    --option-worker-stderr: ["$directories"]

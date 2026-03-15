@@ -1,0 +1,4 @@
+name: nordvpn
+description: NordVPN command line client
+completion:
+  positionalany: ["$carapace.bridge.Urfavecli([nordvpn])"]

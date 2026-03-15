@@ -1,0 +1,49 @@
+name: playerctl
+description: Controller for MPRIS media players
+flags:
+  -h, --help: Show help options
+  -p, --player=: A comma separated list of names of players to control
+  -a, --all-players: Select all available players to be controlled
+  -i, --ignore-player=: A comma separated list of names of players to ignore
+  -f, --format=: A format string for printing properties and metadata
+  -F, --follow: Block and append the query to output when it changes
+  -l, --list-all: List the names of running players that can be controlled
+  -s, --no-messages: Suppress diagnostic messages
+  -v, --version: Print version information
+commands:
+  - name: play
+    description: Command the player to play
+  - name: pause
+    description: Command the player to pause
+  - name: play-pause
+    description: Command the player to toggle between play/pause
+  - name: stop
+    description: Command the player to stop
+  - name: next
+    description: Command the player to skip to the next track
+  - name: previous
+    description: Command the player to skip to the previous track
+  - name: position
+    description: Command the player to go to the position or seek forward/backward
+  - name: volume
+    description: Print or set the volume level (0.0 to 1.0)
+  - name: status
+    description: Get the play status of the player
+  - name: metadata
+    description: Print metadata information for the current track
+  - name: open
+    description: Command for the player to open given URI
+    completion:
+      positionalany: ["$files"]
+  - name: loop
+    description: Print or set the loop status
+    completion:
+      positionalany: ["None", "Track", "Playlist"]
+  - name: shuffle
+    description: Print or set the shuffle status
+    completion:
+      positionalany: ["On", "Off", "Toggle"]
+completion:
+  flag:
+    --player: ["$($SHELL -c 'playerctl --list-all 2>/dev/null')"]
+    --ignore-player: ["$($SHELL -c 'playerctl --list-all 2>/dev/null')"]

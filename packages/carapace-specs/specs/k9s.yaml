@@ -1,0 +1,4 @@
+name: k9s
+description: Kubernetes CLI to manage your clusters in style
+completion:
+  positionalany: ["$carapace.bridge.Cobra([k9s])"]

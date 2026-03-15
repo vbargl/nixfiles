@@ -1,0 +1,4 @@
+name: ngrok
+description: Tunnel local ports to public URLs and inspect traffic
+completion:
+  positionalany: ["$carapace.bridge.Cobra([ngrok])"]

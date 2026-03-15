@@ -1,0 +1,15 @@
+name: hyprlock
+description: Hyprland screen lock utility
+flags:
+  -v, --verbose: Enable verbose logging
+  -q, --quiet: Disable logging
+  -c, --config=: Specify config file to use
+  --display=: Specify the Wayland display to connect to
+  --grace=: Set grace period in seconds before requiring authentication
+  --immediate-render: Do not wait for resources before drawing the background
+  --no-fade-in: Disable the fade-in animation when the lock screen appears
+  -V, --version: Show version information
+  -h, --help: Show this help message
+completion:
+  flag:
+    --config: ["$files"]
