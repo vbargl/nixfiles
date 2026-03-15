@@ -72,19 +72,6 @@
     }];
   }];
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      nordvpn = (import inputs.different-error {
-        system = "x86_64-linux";
-        config = { allowUnfree = true; allowUnfreePredicate = _: true; };
-      }).nordvpn;
-      snx-rs = (import inputs.unstable {
-        system = "x86_64-linux";
-        config = { allowUnfree = true; allowUnfreePredicate = _: true; };
-      }).snx-rs;
-    })
-  ];
-
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -126,7 +113,7 @@
   };
   environment.systemPackages = with pkgs; [
     vim
-    htop
+    btop
     curl
     git
     nfs-utils

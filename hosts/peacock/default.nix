@@ -16,12 +16,21 @@
     options snd_hda_intel power_save=0 power_save_controller=N
   '';
 
+  # VPN services
+  modules.zerotier = {
+    enable = true;
+    networkIds = [ "b6079f73c6fe0b88" ];
+  };
+  modules.snx-rs.enable = true;
+  modules.nordvpn.enable = true;
+
   # Networking
   networking.hostId = "430ec17c";
   networking.hostName = "peacock";
   networking.networkmanager.enable = true;
   networking.nameservers = [ "1.1.1.1" ];
   networking.firewall.enable = false;
+  networking.networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
 
   services.resolved.enable = true;
 
@@ -95,9 +104,11 @@
   # User
   users.users.vbargl = {
     isNormalUser = true;
-    shell = pkgs.fish;
+    shell = pkgs.nushell;
     extraGroups = [ "wheel" "video" "input" "audio" "libvirtd" "docker" "networkmanager" "nordvpn" ];
   };
+
+  environment.shells = [ pkgs.nushell ];
 
   # Security
   security.sudo.extraRules = [{
@@ -124,6 +135,8 @@
   services.power-profiles-daemon.enable = true;
   services.thermald.enable = true;
   services.printing.enable = true;
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nix.gc = {
     automatic = true;
@@ -164,20 +177,6 @@
   virtualisation.spiceUSBRedirection.enable = true;
   programs.virt-manager.enable = true;
 
-  # Overlays
-  nixpkgs.overlays = [
-    (final: prev: {
-      nordvpn = (import inputs.different-error {
-        system = "x86_64-linux";
-        config = { allowUnfree = true; allowUnfreePredicate = _: true; };
-      }).nordvpn;
-      snx-rs = (import inputs.unstable {
-        system = "x86_64-linux";
-        config = { allowUnfree = true; allowUnfreePredicate = _: true; };
-      }).snx-rs;
-    })
-  ];
-
   # System packages
   environment.systemPackages = with pkgs; [
     wl-clipboard
@@ -199,7 +198,6 @@
     brightnessctl
     playerctl
     pamixer
-    networkmanager-openvpn
   ];
 
   # Fonts
@@ -222,9 +220,19 @@
         inputs.caelestia-shell.homeManagerModules.default
       ];
       environment.capabilities = [ "gui" ];
-      purpose = [ "daily" "dev" "connectivity" "media" "games" ];
+      purpose = [ "daily" "dev" "connectivity" "media" "games" "cluster-management" ];
       programs.caelestia.settings.general.apps.explorer = [ "dolphin" ];
       programs.caelestia.settings.general.apps.terminal = [ "ghostty" ];
+      programs.zellij.enableFishIntegration = false;
+      programs.nushell = {
+        enable = true;
+        extraConfig = ''
+          if "ZELLIJ" not-in $env {
+            zellij attach -c
+            exit
+          }
+        '';
+      };
 
       systemd.user.services.caelestia-disable-gamemode = {
         Unit = {
