@@ -81,12 +81,6 @@
       programs.zellij.enableFishIntegration = false;
       programs.nushell = {
         enable = true;
-        extraLogin = ''
-          if "ZELLIJ" not-in $env {
-            zellij attach -c
-            exit
-          }
-        '';
       };
       home = {
         stateVersion = "25.11";

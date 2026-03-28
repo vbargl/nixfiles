@@ -226,12 +226,6 @@
       programs.zellij.enableFishIntegration = false;
       programs.nushell = {
         enable = true;
-        extraConfig = ''
-          if "ZELLIJ" not-in $env {
-            zellij attach -c
-            exit
-          }
-        '';
       };
 
       systemd.user.services.caelestia-disable-gamemode = {
