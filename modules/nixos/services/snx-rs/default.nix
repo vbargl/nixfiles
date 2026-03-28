@@ -13,6 +13,7 @@ in
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
+      path = with pkgs; [ iproute2 kmod ];
       serviceConfig = {
         ExecStart = "${pkgs.snx-rs}/bin/snx-rs -m command";
         Restart = "on-failure";
