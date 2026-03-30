@@ -18,6 +18,7 @@ let
       fd
       bc
       less
+      nh
     ];
 
     gui = [
@@ -54,13 +55,7 @@ in
       # enableFishIntegration = true;
     };
 
-    caelestia = lib.mkIf hasGuiCapability {
-      enable = true;
-      settings.services.useFahrenheit = false;
-      settings.services.useTwelveHourClock = false;
-      settings.bar.status.showAudio = true;
-    };
-  };
+};
 
   home.packages = lib.mkMerge [
     pkgsSet.cli
