@@ -47,8 +47,9 @@
       ./lib
       ./homes
       ./packages
-      ./hosts
+      ./machines
       ./deploy.nix
+      ./shell.nix
       ./overlays.nix
     ];
 }

@@ -4,7 +4,8 @@ let
 in
 {
   nixosConfigurations = {
-    ant = self.lib.mkHost linux ./ant;
+    animus = self.lib.mkHost linux ./animus;
+    flux-capacitor = self.lib.mkHost linux ./flux-capacitor;
     peacock = self.lib.mkHost linux ./peacock;
   };
 }

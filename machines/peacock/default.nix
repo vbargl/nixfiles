@@ -31,6 +31,11 @@
   networking.nameservers = [ "1.1.1.1" ];
   networking.firewall.enable = false;
   networking.networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
+  networking.extraHosts = ''
+    127.0.0.1    eopng-test-master
+    127.0.0.1    eopng-test-site1
+    127.0.0.1    eopng-test-site2
+  '';
 
   services.resolved.enable = true;
 
@@ -126,24 +131,6 @@
     capabilities = "cap_sys_admin+ep";
   };
 
-  # Services
-  services.automatic-timezoned.enable = true;
-  services.geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
-  services.envfs.enable = true;
-  services.udisks2.enable = true;
-  services.upower.enable = true;
-  services.power-profiles-daemon.enable = true;
-  services.thermald.enable = true;
-  services.printing.enable = true;
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-
   boot.loader.systemd-boot.configurationLimit = 10;
 
   # nix-ld
@@ -176,37 +163,6 @@
   virtualisation.docker.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
   programs.virt-manager.enable = true;
-
-  # System packages
-  environment.systemPackages = with pkgs; [
-    wl-clipboard
-    alsa-utils
-    xwayland
-    hyprland
-    pavucontrol
-    hyprlock
-    hypridle
-    hyprsysteminfo
-    hyprcursor
-    grim
-    slurp
-    swappy
-    gpu-screen-recorder
-    libnotify
-    kdePackages.dolphin
-    xdg-desktop-portal-hyprland
-    brightnessctl
-    playerctl
-    pamixer
-  ];
-
-  # Fonts
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-  ];
-
-  # Programs
-  programs.fish.enable = true;
 
   # Home Manager
   home-manager = {

@@ -18,7 +18,10 @@
   boot.loader.systemd-boot.configurationLimit = 20;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "ant";
+  # Longhorn v1.11+ requires dm_crypt kernel module
+  boot.kernelModules = [ "dm_crypt" ];
+
+  networking.hostName = "flux-capacitor";
   networking.networkmanager.enable = true;
   networking.networkmanager.ensureProfiles.environmentFiles = [
     config.age.secrets.wifi-vodafone-psk.path
@@ -98,13 +101,16 @@
     extraFlags = [ "--tls-san=172.27.27.9" ];
   };
 
-  services.udisks2.enable = true;
-
   # Longhorn dependencies
   services.openiscsi = {
     enable = true;
-    name = "iqn.2026-03.net.barglvojtech:ant";
+    name = "iqn.2026-03.net.barglvojtech:flux-capacitor";
   };
+
+  # Longhorn expects iscsiadm at a standard path, not under /nix/store
+  systemd.tmpfiles.rules = [
+    "L+ /usr/local/bin/iscsiadm - - - - ${pkgs.openiscsi}/bin/iscsiadm"
+  ];
   environment.systemPackages = with pkgs; [
     vim
     btop
