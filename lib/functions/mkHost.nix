@@ -11,6 +11,7 @@ in
       modules = [
         disko.nixosModules.disko
         home-manager.nixosModules.home-manager
+        "${flake}/modules/nixos/minimal.nix"
         "${flake}/modules/nixos/services/zerotier"
         "${flake}/modules/nixos/services/snx-rs"
         "${flake}/modules/nixos/services/nordvpn"
