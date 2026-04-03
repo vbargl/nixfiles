@@ -11,7 +11,9 @@ in
     };
   };
 
-  config = lib.optionalAttrs (hasCaelestia && config.programs.caelestia.enable) {
+  config = lib.optionalAttrs hasCaelestia (lib.mkIf (builtins.elem "gui" config.environment.capabilities) {
+    programs.caelestia.enable = true;
+
     programs.caelestia.settings = {
       services.useFahrenheit = lib.mkDefault false;
       services.useTwelveHourClock = lib.mkDefault false;
@@ -38,5 +40,5 @@ in
       };
       Install.WantedBy = [ "caelestia.service" ];
     };
-  };
+  });
 }

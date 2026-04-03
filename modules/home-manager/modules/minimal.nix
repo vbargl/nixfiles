@@ -88,12 +88,16 @@ in
             }
 
             # VCS branch (jj or git)
-            let jj_info = (do -i { ^jj log -r @ --no-graph -T 'separate(" ", bookmarks.join(", "), change_id.shortest(8))' } | complete)
-            let branch_text = if $jj_info.exit_code == 0 {
-                let info = ($jj_info.stdout | str trim)
-                if ($info | is-empty) { "" } else { $"jj:($info)" }
+            let branch_text = if (which jj | is-not-empty) {
+                let jj_info = (^jj log -r @ --no-graph -T 'separate(" ", bookmarks.join(", "), change_id.shortest(8))' | complete)
+                if $jj_info.exit_code == 0 {
+                    let info = ($jj_info.stdout | str trim)
+                    if ($info | is-empty) { "" } else { $"jj:($info)" }
+                } else {
+                    ""
+                }
             } else {
-                let git_branch = (do -i { ^git symbolic-ref --short HEAD } | complete)
+                let git_branch = (^git symbolic-ref --short HEAD | complete)
                 if $git_branch.exit_code == 0 {
                     ($git_branch.stdout | str trim)
                 } else {
