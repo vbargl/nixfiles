@@ -47,6 +47,29 @@ in
     nushell = {
       enable = true;
       extraEnv = ''
+        # nupm
+        let bin = ($env.HOME | path join ".local" "bin")
+        $env.NUPM_HOME = ($env.XDG_DATA_HOME? | default ($env.HOME | path join ".local" "share") | path join "nupm")
+
+        $env.NU_LIB_DIRS = (
+            $env.NU_LIB_DIRS?
+            | default []
+            | append ($env.NUPM_HOME | path join "modules")
+            | append ($env.HOME | path join ".local" "share" "nupm-repo")
+        )
+
+        $env.PATH = (
+            $env.PATH
+            | split row (char esep)
+            | prepend ($env.NUPM_HOME | path join "scripts")
+            | uniq
+        )
+
+        $env.PATH = (
+            $env.PATH
+            | append $bin
+        )
+
         # Rose Pine Moon prompt
         $env.PROMPT_COMMAND = {||
             let red = (ansi {fg: '#eb6f92'})
