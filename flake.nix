@@ -36,6 +36,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    localzone = {
+      url = "git+ssh://git@github.com/vbargl/localzone";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # custom packages
     different-error.url = "github:different-error/nixpkgs/nordvpn";
     unstable.url        = "github:nixos/nixpkgs";

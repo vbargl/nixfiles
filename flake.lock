@@ -224,6 +224,26 @@
         "type": "github"
       }
     },
+    "localzone": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775321782,
+        "narHash": "sha256-1zQ4w+bkp7mKUhZfciaP2qVdXXgtYVrsY5t2lHvUooM=",
+        "ref": "refs/heads/main",
+        "rev": "4f9a8773d880095735832f3495d76d45902309d6",
+        "revCount": 30,
+        "type": "git",
+        "url": "ssh://git@github.com/vbargl/localzone"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/vbargl/localzone"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1773610124,
@@ -270,6 +290,7 @@
         "disko": "disko",
         "home-manager": "home-manager_2",
         "lite": "lite",
+        "localzone": "localzone",
         "nixpkgs": "nixpkgs",
         "unstable": "unstable"
       }
