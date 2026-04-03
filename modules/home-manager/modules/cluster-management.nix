@@ -8,6 +8,7 @@ in
       k9s
       kubectl
       age
+      deploy-rs
     ];
   };
 }

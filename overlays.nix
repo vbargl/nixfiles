@@ -10,5 +10,6 @@
       carapace-specs = final.callPackage "${inputs.self}/packages/carapace-specs" {};
       pinchtab = final.callPackage "${inputs.self}/packages/pinchtab" {};
       inherit (unstable) snx-rs nushell;
+      deploy-rs = inputs.deploy-rs.packages.${system}.default;
     };
 }
