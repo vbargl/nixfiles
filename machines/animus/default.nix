@@ -1,6 +1,10 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
+  imports = [
+    ./virtual-hardware-configuration.nix
+  ];
+
   nix.settings.trusted-users = [ "root" "vbargl" ];
 
   boot.loader.systemd-boot.enable = true;
@@ -12,8 +16,6 @@
   networking.hostName = "animus";
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [ 22 6443 ];
-
-  time.timeZone = lib.mkForce "Europe/Prague";
 
   users.users.vbargl = {
     isNormalUser = true;

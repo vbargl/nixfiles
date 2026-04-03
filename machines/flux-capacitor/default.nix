@@ -52,7 +52,6 @@
     file = ../../secrets/k3s-token.age;
   };
 
-  time.timeZone = "Europe/Prague";
   i18n.defaultLocale = "en_US.UTF-8";
 
   users.users.vbargl = {
