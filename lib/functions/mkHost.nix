@@ -15,6 +15,7 @@ in
         "${flake}/modules/nixos/services/zerotier"
         "${flake}/modules/nixos/services/snx-rs"
         "${flake}/modules/nixos/services/nordvpn"
+        "${flake}/modules/nixos/services/localzone"
         hostPath
         {
           nixpkgs.config = self.config.nixpkgs;
