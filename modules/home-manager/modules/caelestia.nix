@@ -11,7 +11,7 @@ in
     };
   };
 
-  config = lib.mkIf (hasCaelestia && config.programs.caelestia.enable) {
+  config = lib.optionalAttrs (hasCaelestia && config.programs.caelestia.enable) {
     programs.caelestia.settings = {
       services.useFahrenheit = lib.mkDefault false;
       services.useTwelveHourClock = lib.mkDefault false;
