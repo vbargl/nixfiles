@@ -180,10 +180,6 @@
       programs.caelestia.settings.general.apps.explorer = [ "dolphin" ];
       programs.caelestia.settings.general.apps.terminal = [ "ghostty" ];
       programs.zellij.enableFishIntegration = false;
-      programs.nushell = {
-        enable = true;
-      };
-
       systemd.user.services.caelestia-disable-gamemode = {
         Unit = {
           Description = "Disable Caelestia game mode on boot";

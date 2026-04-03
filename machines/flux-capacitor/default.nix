@@ -81,9 +81,6 @@
       imports = [ "${inputs.self}/modules/home-manager" ];
       purpose = [ "connectivity" ];
       programs.zellij.enableFishIntegration = false;
-      programs.nushell = {
-        enable = true;
-      };
       home = {
         stateVersion = "25.11";
         username = "vbargl";
