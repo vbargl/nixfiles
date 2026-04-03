@@ -23,19 +23,14 @@
   };
   modules.snx-rs.enable = true;
   modules.nordvpn.enable = true;
+  modules.localzone.enable = true;
 
   # Networking
   networking.hostId = "430ec17c";
   networking.hostName = "peacock";
   networking.networkmanager.enable = true;
-  networking.nameservers = [ "1.1.1.1" ];
   networking.firewall.enable = false;
   networking.networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
-  networking.extraHosts = ''
-    127.0.0.1    eopng-test-master
-    127.0.0.1    eopng-test-site1
-    127.0.0.1    eopng-test-site2
-  '';
 
   services.resolved.enable = true;
 
@@ -110,7 +105,7 @@
   users.users.vbargl = {
     isNormalUser = true;
     shell = pkgs.nushell;
-    extraGroups = [ "wheel" "video" "input" "audio" "libvirtd" "docker" "networkmanager" "nordvpn" ];
+    extraGroups = [ "wheel" "video" "input" "audio" "libvirtd" "docker" "networkmanager" "nordvpn" config.modules.localzone.group ];
   };
 
   environment.shells = [ pkgs.nushell ];
