@@ -25,17 +25,26 @@ cd ~/personal/nixfiles
 # Build
 nixos-rebuild build-vm --flake .#animus
 
-# Run (20GB disk, 4GB RAM, 2 cores, SSH + K3s port forwarding)
+# Create root disk (20GB)
 TEMP=$(mktemp)
 qemu-img create -f raw "$TEMP" 20G
 mkfs.ext4 -L nixos "$TEMP"
 qemu-img convert -f raw -O qcow2 "$TEMP" /tmp/animus.qcow2
 rm "$TEMP"
 
+# Create Longhorn storage disks (thin-provisioned, created once)
+qemu-img create -f qcow2 /tmp/animus-longhorn-nvme.qcow2 500G
+qemu-img create -f qcow2 /tmp/animus-longhorn-hdd.qcow2 2T
+
+# Run (20GB root, 4GB RAM, 2 cores, SSH + K3s port forwarding, Longhorn disks)
 NIX_DISK_IMAGE=/tmp/animus.qcow2 \
 QEMU_NET_OPTS="hostfwd=tcp::2222-:22,hostfwd=tcp::6443-:6443" \
-  result/bin/run-animus-vm -m 4096 -smp 2 -nographic
+  result/bin/run-animus-vm -m 4096 -smp 2 -nographic \
+  -drive file=/tmp/animus-longhorn-nvme.qcow2,format=qcow2,if=virtio \
+  -drive file=/tmp/animus-longhorn-hdd.qcow2,format=qcow2,if=virtio
 ```
+
+The Longhorn disks are thin-provisioned qcow2 images that only consume actual space as data is written. On first VM boot, a systemd oneshot service automatically formats them with ext4 and they are mounted at `/var/lib/longhorn/nvme` (vdb) and `/var/lib/longhorn/hdd` (vdc).
 
 Access:
 
