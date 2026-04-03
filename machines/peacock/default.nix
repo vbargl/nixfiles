@@ -168,7 +168,6 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs; self = inputs.self; };
     users.vbargl = {
       imports = [
         "${inputs.self}/modules/home-manager"
@@ -177,33 +176,6 @@
       ];
       environment.capabilities = [ "gui" ];
       purpose = [ "daily" "dev" "connectivity" "media" "games" "cluster-management" ];
-      programs.caelestia.settings.general.apps.explorer = [ "dolphin" ];
-      programs.caelestia.settings.general.apps.terminal = [ "ghostty" ];
-      programs.zellij.enableFishIntegration = false;
-      systemd.user.services.caelestia-disable-gamemode = {
-        Unit = {
-          Description = "Disable Caelestia game mode on boot";
-          After = [ "caelestia.service" ];
-          Requires = [ "caelestia.service" ];
-        };
-        Service = {
-          Type = "oneshot";
-          ExecStart = let
-            caelestia = inputs.caelestia-shell.packages.x86_64-linux.default;
-          in "${pkgs.writeShellScript "disable-gamemode" ''
-            ${pkgs.coreutils}/bin/sleep 2
-            ${caelestia}/bin/caelestia-shell ipc call gameMode disable
-          ''}";
-        };
-        Install.WantedBy = [ "caelestia.service" ];
-      };
-      home.file."Pictures/Wallpapers/wallpaper.jpg".source = ./wallpapers/wallpaper.jpg;
-
-      services.home-manager.autoExpire = {
-        enable = true;
-        frequency = "weekly";
-        timestamp = "-30 days";
-      };
     };
   };
 

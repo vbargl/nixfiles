@@ -1,8 +1,7 @@
-{ lib, pkgs, config, options, ... }:
+{ lib, pkgs, config, ... }:
 let
   hasDailyPurpose  = builtins.elem "daily" config.purpose;
   hasGuiCapability = builtins.elem "gui" config.environment.capabilities;
-  hasCaelestia     = options.programs ? caelestia;
 
   pkgsSet = with pkgs; [
     # Desktop environment
@@ -44,15 +43,6 @@ in
     ];
 
     fonts.fontconfig.enable = true;
-
-    programs = lib.optionalAttrs hasCaelestia {
-      caelestia = {
-        enable = true;
-        settings.services.useFahrenheit = false;
-        settings.services.useTwelveHourClock = false;
-        settings.bar.status.showAudio = true;
-      };
-    };
 
     services.syncthing = {
       enable = true;

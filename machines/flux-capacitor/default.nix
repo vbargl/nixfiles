@@ -78,15 +78,12 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     users.vbargl = {
-      imports = [ "${inputs.self}/modules/home-manager" ];
+      imports = [
+        "${inputs.self}/modules/home-manager"
+        "${inputs.self}/homes/users/vbargl.nix"
+      ];
       purpose = [ "connectivity" ];
-      programs.zellij.enableFishIntegration = false;
-      home = {
-        stateVersion = "25.11";
-        username = "vbargl";
-        homeDirectory = "/home/vbargl";
-        sessionPath = [ "$HOME/.local/bin" ];
-      };
+      home.stateVersion = "25.11";
     };
   };
 

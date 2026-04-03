@@ -19,6 +19,7 @@ in
         {
           nixpkgs.config = self.config.nixpkgs;
           nixpkgs.overlays = [ self.overlays.default ];
+          home-manager.extraSpecialArgs = { inherit inputs; self = inputs.self; };
         }
       ];
     };

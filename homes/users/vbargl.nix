@@ -1,4 +1,4 @@
-{ self, inputs, ... }:
+{ lib, self, inputs, ... }:
 {
   home.activation.setupNixRegistry = ''
     nix registry add nixpkgs github:nixos/nixpkgs/${inputs.unstable.rev}
@@ -6,7 +6,7 @@
   '';
 
   home = {
-    stateVersion = "25.05";
+    stateVersion = lib.mkDefault "25.05";
 
     username = "vbargl";
     homeDirectory = "/home/vbargl";

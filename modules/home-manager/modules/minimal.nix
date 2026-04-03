@@ -124,14 +124,15 @@ in
 
     zellij = {
       enable = true;
-
-      # TODO: autostart in fish termina
-      #       really want just completions only
-      #
-      # enableFishIntegration = true;
+      enableFishIntegration = true;
     };
+  };
 
-};
+  services.home-manager.autoExpire = {
+    enable = true;
+    frequency = "weekly";
+    timestamp = "-30 days";
+  };
 
   home.packages = lib.mkMerge [
     pkgsSet.cli
