@@ -47,6 +47,10 @@ in
     nushell = {
       enable = true;
       extraEnv = ''
+        # Carapace bridges - use completions from other shells for commands
+        # carapace doesn't natively support
+        $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
+
         # nupm
         let bin = ($env.HOME | path join ".local" "bin")
         $env.NUPM_HOME = ($env.XDG_DATA_HOME? | default ($env.HOME | path join ".local" "share") | path join "nupm")
@@ -144,6 +148,25 @@ in
 
         $env.PROMPT_COMMAND_RIGHT = ""
         $env.PROMPT_MULTILINE_INDICATOR = {|| "  " }
+      '';
+      extraConfig = ''
+        # Override carapace completer with CARAPACE_LENIENT to prevent errors
+        # on unknown flags and improve overall completion experience
+        let carapace_completer = {|spans: list<string>|
+          # expand aliases
+          let expanded_alias = (scope aliases | where name == $spans.0 | $in.0?.expansion?)
+          let spans = (if $expanded_alias != null {
+            $spans | skip 1 | prepend ($expanded_alias | split row " " | take 1)
+          } else {
+            $spans
+          })
+
+          CARAPACE_LENIENT=1 carapace $spans.0 nushell ...$spans
+          | from json
+          | default []
+        }
+
+        $env.config.completions.external.completer = $carapace_completer
       '';
     };
 
