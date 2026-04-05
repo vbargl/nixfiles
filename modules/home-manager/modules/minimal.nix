@@ -39,11 +39,6 @@ in
       enableFishIntegration = true;
     };
     carapace-specs.enable = true;
-    helix = {
-      enable = true;
-      defaultEditor = true;
-    };
-
     nushell = {
       enable = true;
       extraEnv = ''
