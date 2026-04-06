@@ -60,7 +60,7 @@
     shell = pkgs.nushell;
     extraGroups = [ "wheel" "networkmanager" ];
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMFNlZYlDjje/aX9WSd0WyCvEQaqHvbX/5/IWvXkntdu bargl.vojtech.net"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICzfPQUzXyHZZL1sfHzCA0o5eKdsL+/XrHrVJnAt9liI vbargl@peacock"
     ];
   };
 

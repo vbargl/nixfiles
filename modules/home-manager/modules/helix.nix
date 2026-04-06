@@ -4,6 +4,11 @@ let
   home = config.home.homeDirectory;
 in
 {
+  home.sessionVariables = {
+    EDITOR = "hx";
+    VISUAL = "hx";
+  };
+
   programs.helix = {
     enable = true;
     defaultEditor = true;

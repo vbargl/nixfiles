@@ -9,7 +9,7 @@
       nordvpn = (import inputs.different-error { inherit system config; }).nordvpn;
       carapace-specs = final.callPackage "${inputs.self}/packages/carapace-specs" {};
       pinchtab = final.callPackage "${inputs.self}/packages/pinchtab" {};
-      inherit (unstable) snx-rs nushell;
+      inherit (unstable) snx-rs nushell rclone;
       deploy-rs = inputs.deploy-rs.packages.${system}.default;
     };
 }
