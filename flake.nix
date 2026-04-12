@@ -48,8 +48,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    different-error.url = "github:different-error/nixpkgs/nordvpn";
-    unstable.url        = "github:nixos/nixpkgs";
+    different-error = {
+      url = "github:different-error/nixpkgs/nordvpn";
+    };
+
+    unstable = {
+      url = "github:nixos/nixpkgs";
+    };
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
