@@ -25,7 +25,7 @@
       connectivity
       daily
     ]) ++ [({ config, pkgs, ... }: {
-      nixpkgs.config = self.config.nixpkgs;
+      nixpkgs.config = { allowUnfree = true; allowUnfreePredicate = _: true; };
       nixpkgs.overlays = [ self.overlays.default ];
 
       environment.capabilities.gui = true;
@@ -58,8 +58,8 @@
         ipv6.method = "auto";
       };
 
-      age.secrets.wifi-vodafone-psk.file = ../../secrets/wifi-vodafone-psk.age;
-      age.secrets.k3s-token.file = ../../secrets/k3s-token.age;
+      age.secrets.wifi-vodafone-psk.file = ../secrets/wifi-vodafone-psk.age;
+      age.secrets.k3s-token.file = ../secrets/k3s-token.age;
 
       i18n.defaultLocale = "cs_CZ.UTF-8";
       i18n.extraLocaleSettings.LC_MESSAGES = "en_US.UTF-8";

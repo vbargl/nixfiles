@@ -2,7 +2,7 @@
   flake.overlays.default = final: prev:
     let
       system = final.stdenv.hostPlatform.system;
-      config = self.config.nixpkgs;
+      config = { allowUnfree = true; allowUnfreePredicate = _: true; };
       unstable = import inputs.unstable { inherit system config; };
     in {
       nordvpn = (import inputs.different-error { inherit system config; }).nordvpn;
