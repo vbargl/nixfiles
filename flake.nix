@@ -1,31 +1,38 @@
 {
   description = ''
-    Nix flake for managing NixOS configurations and Home Manager setups.
-
-    This flake includes:
-    - NixOS configuration for the host "peacock"
-      - With special subfolder _modules which contains reusable modules for nixos
-    - Home Manager configuration for the user "vbargl"
-      - With special subfolder _modules which contains reusable modules for home-manager
-    - DevShells for my development environments
+    Nix flake for managing NixOS configurations.
+    Uses flake-parts for modular output composition.
+    Machines include home management via hjem.
   '';
-  
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    lite.url = "github:vbargl/nix-lite/v1.0.0";
-    
-    home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    hjem = {
+      url = "github:feel-co/hjem";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     agenix = {
-      url = "github:ryantm/age-nix";
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     disko = {
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,20 +48,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # custom packages
     different-error.url = "github:different-error/nixpkgs/nordvpn";
     unstable.url        = "github:nixos/nixpkgs";
   };
 
-  outputs = { lite, ... }@inputs:
-    lite.modules.eval inputs [
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+    systems = [ "x86_64-linux" ];
+
+    imports = [
       ./config.nix
       ./lib
-      ./homes
-      ./packages
       ./machines
+      ./packages
       ./deploy.nix
       ./shell.nix
       ./overlays.nix
     ];
+  };
 }
