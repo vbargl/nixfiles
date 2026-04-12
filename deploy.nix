@@ -1,10 +1,10 @@
 { self, inputs, ... }:
 let
-  inherit (inputs) deploy-rs nixpkgs;
+  inherit (inputs) deploy-rs;
   system = "x86_64-linux";
 in
 {
-  deploy.nodes.flux-capacitor = {
+  flake.deploy.nodes.flux-capacitor = {
     hostname = "flux-capacitor";
     sshUser = "vbargl";
     user = "root";
@@ -19,6 +19,7 @@ in
     };
   };
 
-  checks.${system} =
-    deploy-rs.lib.${system}.deployChecks self.deploy;
+  perSystem = { system, ... }: {
+    checks = deploy-rs.lib.${system}.deployChecks self.deploy;
+  };
 }

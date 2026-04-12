@@ -1,6 +1,8 @@
-{
-  config.nixpkgs = {
-    allowUnfree = true;
-    allowUnfreePredicate = (_: true);
+{ ... }: {
+  flake.config = {
+    nixpkgs = {
+      allowUnfree = true;
+      allowUnfreePredicate = (_: true);
+    };
   };
 }
