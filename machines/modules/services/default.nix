@@ -4,5 +4,6 @@
     ./localzone
     ./nordvpn
     ./snx-rs
+    ./wine
   ];
 }
