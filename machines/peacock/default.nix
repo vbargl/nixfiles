@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -101,15 +101,6 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  # User
-  users.users.vbargl = {
-    isNormalUser = true;
-    shell = pkgs.nushell;
-    extraGroups = [ "wheel" "video" "input" "audio" "libvirtd" "docker" "networkmanager" "nordvpn" config.modules.localzone.group ];
-  };
-
-  environment.shells = [ pkgs.nushell ];
-
   # Security
   security.sudo.extraRules = [{
     users = [ "vbargl" ];
@@ -137,7 +128,7 @@
       fuse3
       icu
       nss
-      openssl
+      openssl.out
       curl
       expat
       docker
@@ -159,20 +150,4 @@
   virtualisation.spiceUSBRedirection.enable = true;
   programs.virt-manager.enable = true;
 
-  # Home Manager
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.vbargl = {
-      imports = [
-        "${inputs.self}/modules/home-manager"
-        "${inputs.self}/homes/users/vbargl.nix"
-        inputs.caelestia-shell.homeManagerModules.default
-      ];
-      environment.capabilities = [ "gui" ];
-      purpose = [ "daily" "dev" "connectivity" "media" "games" "cluster-management" ];
-    };
-  };
-
-  system.stateVersion = "25.05";
 }
