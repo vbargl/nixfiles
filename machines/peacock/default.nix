@@ -12,9 +12,7 @@
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.extraPools = [ "data" ];
 
-  environment.etc."modprobe.d/snd_hda_intel.conf".text = ''
-    options snd_hda_intel power_save=0 power_save_controller=N
-  '';
+  environment.etc."modprobe.d/snd_hda_intel.conf".source = ../../config/modprobe/snd_hda_intel.conf;
 
   # VPN services
   modules.zerotier = {
