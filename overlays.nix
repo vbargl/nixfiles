@@ -8,6 +8,7 @@
       nordvpn = (import inputs.different-error { inherit system config; }).nordvpn;
       carapace-specs = final.callPackage "${self.outPath}/packages/carapace-specs" {};
       pinchtab = final.callPackage "${self.outPath}/packages/pinchtab" {};
+      zen-browser = inputs.zen-browser.packages.${system}.default;
       inherit (unstable) snx-rs nushell rclone;
       deploy-rs = inputs.deploy-rs.packages.${system}.default;
     };

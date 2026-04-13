@@ -52,6 +52,11 @@
       url = "github:different-error/nixpkgs/nordvpn";
     };
 
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     unstable = {
       url = "github:nixos/nixpkgs";
     };
