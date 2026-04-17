@@ -60,6 +60,8 @@
     unstable = {
       url = "github:nixos/nixpkgs";
     };
+
+    nixlite.url = "github:vbargl/nixlite";
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
