@@ -1,7 +1,3 @@
-{ ... }: {
-  imports = [
-    ./ash-twin
-    ./flux-capacitor
-    ./peacock
-  ];
+{ inputs, ... }: {
+  imports = builtins.attrValues (inputs.nixlite.import ./.);
 }
