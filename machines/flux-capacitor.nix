@@ -13,7 +13,7 @@
       ./hardware/flux-capacitor.nix
       ./hardware/flux-capacitor-disko.nix
 
-      ../homes/vbargl.nix
+      ../users/vbargl
 
     ] ++ (with self.modules.nixos; [
       options

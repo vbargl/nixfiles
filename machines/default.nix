@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ./ash-twin.nix
+    ./ash-twin
     ./flux-capacitor.nix
     ./peacock.nix
   ];

@@ -9,7 +9,7 @@
       inputs.stylix.nixosModules.stylix
 
       ./peacock/default.nix
-      ../homes/vbargl.nix
+      ../users/vbargl
 
     ] ++ (with self.modules.nixos; [
       options
