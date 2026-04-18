@@ -1,5 +1,5 @@
 { lib, pkgs, hasCapability, ... }: {
-  imports = [ ../nushell ];
+  imports = [ ../nushell ../zen-browser ];
 
   users.users.vbargl.packages = with pkgs; lib.mkMerge [
     [
@@ -33,9 +33,4 @@
   ];
 
   programs.fish.enable = true;
-
-  hjem.users.vbargl.files =
-    lib.mkIf (hasCapability "gui") {
-      ".config/mimeapps.list".source = ../../../config/mimeapps.list;
-    };
 }
