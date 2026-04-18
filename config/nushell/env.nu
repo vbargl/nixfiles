@@ -72,7 +72,7 @@ $env.PROMPT_COMMAND = {||
 
     let width = (term size).columns
     let padding = ([1, ($width - ($left_text | str length) - ($right_text | str length))] | math max)
-    let spaces = (''' | fill -c ' ' -w $padding)
+    let spaces = ('' | fill -c ' ' -w $padding)
 
     # Colored output
     let left = $"($red)($user)($overlay)@($host) ($pine)($dir)($reset)"
