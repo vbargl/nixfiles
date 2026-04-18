@@ -1,4 +1,6 @@
 { lib, pkgs, hasCapability, ... }: {
+  imports = [ ../nushell ];
+
   users.users.vbargl.packages = with pkgs; lib.mkMerge [
     [
       moreutils
@@ -16,7 +18,6 @@
       bc
       less
       nh
-      nushell
       fish
       carapace
       yazi
@@ -26,7 +27,6 @@
       ghostty
       walker
       firefox       # kept for compatibility
-      zen-browser   # default browser
       thunderbird
       peazip
     ])
@@ -34,13 +34,8 @@
 
   programs.fish.enable = true;
 
-  hjem.users.vbargl.files = lib.mkMerge [
-    {
-      ".config/nushell/env.nu".source    = ../../../config/nushell/env.nu;
-      ".config/nushell/config.nu".source = ../../../config/nushell/config.nu;
-    }
-    (lib.mkIf (hasCapability "gui") {
+  hjem.users.vbargl.files =
+    lib.mkIf (hasCapability "gui") {
       ".config/mimeapps.list".source = ../../../config/mimeapps.list;
-    })
-  ];
+    };
 }
