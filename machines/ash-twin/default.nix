@@ -58,7 +58,7 @@
 
   services.xserver.xkb = {
     layout = "cz,cz,sk";
-    variant = "ucw,,";                    # cz(ucw) = Czech programmer; classic cz; classic sk
+    variant = ",bksl,";                   # plain cz (qwertz, primary); cz with \| on bksl; classic sk
     options = "grp:alt_shift_toggle";
   };
 
@@ -95,7 +95,7 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
-    open = false;
+    open = false;   # chaotic-nyx's open module fails to build vs cachyos 6.18 (upstream known failure)
     nvidiaSettings = true;
     powerManagement.enable = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -116,7 +116,7 @@
     enable = true;
     user = "vbargl";
   };
-  services.displayManager.defaultSession = "steam";
+  services.displayManager.defaultSession = "plasma";   # gamescope session available; launched from Plasma (Steam Big Picture) per-game
   services.desktopManager.plasma6.enable = true;
 
   ##################################
