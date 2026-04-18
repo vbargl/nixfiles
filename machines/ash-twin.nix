@@ -18,7 +18,8 @@
       options
       minimal
       stylix
-      services
+      zerotier
+      nordvpn
     ]) ++ (with self.modules.homeManager; [
       minimal
       daily

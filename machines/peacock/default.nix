@@ -12,8 +12,6 @@
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.extraPools = [ "data" ];
 
-  environment.etc."modprobe.d/snd_hda_intel.conf".source = ../../config/modprobe/snd_hda_intel.conf;
-
   # VPN services
   modules.zerotier = {
     enable = true;

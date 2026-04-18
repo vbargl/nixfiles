@@ -19,7 +19,7 @@
       options
       minimal
       stylix
-      services
+      zerotier
     ]) ++ (with self.modules.homeManager; [
       minimal
       connectivity

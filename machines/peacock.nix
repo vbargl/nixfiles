@@ -15,7 +15,12 @@
       options
       minimal
       stylix
-      services
+      zerotier
+      nordvpn
+      localzone
+      snx-rs
+      wine
+      snd_hda_intel
     ]) ++ (with self.modules.homeManager; [
       minimal
       dev
