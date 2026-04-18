@@ -43,6 +43,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    chaotic = {
+      # no nixpkgs.follows: chaotic's binary cache is keyed by their own nixpkgs pin.
+      # Overriding with `follows` changes derivation hashes → cache misses on kernel/nvidia.
+      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    };
+
     localzone = {
       url = "git+ssh://git@github.com/vbargl/localzone";
       inputs.nixpkgs.follows = "nixpkgs";
