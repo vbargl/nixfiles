@@ -1,6 +1,7 @@
 { lib, config, ... }: {
   options.environment.capabilities = {
     gui = lib.mkEnableOption "graphical environment (display server, GUI apps)";
+    dev = lib.mkEnableOption "development tooling (compilers, language servers)";
   };
 
   # Compatibility stub: stylix's gnome module references this option which was

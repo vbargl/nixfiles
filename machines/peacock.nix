@@ -25,11 +25,13 @@
       games
       cluster-management
       caelestia
+      helix
     ]) ++ [({ config, pkgs, lib, ... }: {
       nixpkgs.config = { allowUnfree = true; allowUnfreePredicate = _: true; };
       nixpkgs.overlays = [ self.overlays.default ];
 
       environment.capabilities.gui = true;
+      environment.capabilities.dev = true;
 
       nix.settings = {
         experimental-features = [ "nix-command" "flakes" ];
