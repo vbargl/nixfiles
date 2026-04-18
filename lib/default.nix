@@ -1,7 +1,11 @@
 { inputs, ... }:
 {
   flake.modules = {
-    homeManager = inputs.nixlite.import ../modules/users;
-    nixos       = inputs.nixlite.import ../modules/machines;
+    machines = inputs.nixlite.import ../modules/machines;
+    users    = inputs.nixlite.import ../modules/users;
+  };
+  flake.profiles = {
+    machines = inputs.nixlite.import ../profiles/machines;
+    users    = inputs.nixlite.import ../profiles/users;
   };
 }

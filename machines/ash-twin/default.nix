@@ -14,13 +14,14 @@
       ./config.nix
       ../../users/vbargl
 
-    ] ++ (with self.modules.nixos; [
+    ] ++ (with self.modules.machines; [
       options
-      minimal
-      stylix
       zerotier
       nordvpn
-    ]) ++ (with self.modules.homeManager; [
+    ]) ++ (with self.profiles.machines; [
+      minimal
+      stylix
+    ]) ++ (with self.profiles.users; [
       minimal
       daily
       connectivity

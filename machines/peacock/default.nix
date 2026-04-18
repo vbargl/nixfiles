@@ -11,17 +11,18 @@
       ./config.nix
       ../../users/vbargl
 
-    ] ++ (with self.modules.nixos; [
+    ] ++ (with self.modules.machines; [
       options
-      minimal
-      stylix
       zerotier
       nordvpn
       localzone
       snx-rs
       wine
       snd_hda_intel
-    ]) ++ (with self.modules.homeManager; [
+    ]) ++ (with self.profiles.machines; [
+      minimal
+      stylix
+    ]) ++ (with self.profiles.users; [
       minimal
       dev
       daily
@@ -29,6 +30,7 @@
       media
       games
       cluster-management
+    ]) ++ (with self.modules.users; [
       caelestia
       helix
     ]) ++ [({ config, pkgs, lib, ... }: {

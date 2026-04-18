@@ -16,12 +16,13 @@
 
       ../../users/vbargl
 
-    ] ++ (with self.modules.nixos; [
+    ] ++ (with self.modules.machines; [
       options
+      zerotier
+    ]) ++ (with self.profiles.machines; [
       minimal
       stylix
-      zerotier
-    ]) ++ (with self.modules.homeManager; [
+    ]) ++ (with self.profiles.users; [
       minimal
       connectivity
       daily
