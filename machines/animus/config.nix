@@ -1,11 +1,20 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
-    ./virtual-hardware-configuration.nix
+    ./hardware.nix
   ];
 
-  nix.settings.trusted-users = [ "root" "vbargl" ];
+  nix.settings.trusted-users = [
+    "root"
+    "vbargl"
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -15,7 +24,10 @@
 
   networking.hostName = "animus";
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 22 6443 ];
+  networking.firewall.allowedTCPPorts = [
+    22
+    6443
+  ];
 
   users.users.vbargl = {
     isNormalUser = true;
@@ -29,18 +41,25 @@
 
   environment.shells = [ pkgs.nushell ];
 
-  security.sudo.extraRules = [{
-    users = [ "vbargl" ];
-    commands = [{
-      command = "ALL";
-      options = [ "NOPASSWD" ];
-    }];
-  }];
+  security.sudo.extraRules = [
+    {
+      users = [ "vbargl" ];
+      commands = [
+        {
+          command = "ALL";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 
   services.k3s = {
     enable = true;
     role = "server";
-    extraFlags = [ "--disable=local-storage" "--disable=traefik" ];
+    extraFlags = [
+      "--disable=local-storage"
+      "--disable=traefik"
+    ];
   };
 
   # Longhorn dependencies
