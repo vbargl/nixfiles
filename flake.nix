@@ -2,7 +2,7 @@
   description = ''
     Nix flake for managing NixOS configurations.
     Uses flake-parts for modular output composition.
-    Machines include home management via hjem.
+    Machines include home management via home-manager.
   '';
 
   inputs = {
@@ -11,11 +11,6 @@
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-
-    hjem = {
-      url = "github:feel-co/hjem";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
