@@ -1,4 +1,4 @@
-{ lib, pkgs, config, inputs, self, ... }:
+{ lib, pkgs, config, inputs, ... }:
 let
   inherit (pkgs.stdenv.hostPlatform) system;
   cfg = config.nxf.home.caelestia;
@@ -74,44 +74,45 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.enable && config.environment.capabilities.gui) {
+  config = lib.mkIf cfg.enable {
+    home.packages = [ cfg.package ];
 
-    users.users.vbargl.packages = [ cfg.package ];
-
-    hjem.users.vbargl.files = lib.mkMerge [
+    xdg.configFile = lib.mkMerge [
       (lib.mkIf (shouldGenerate cfg) {
-        ".config/caelestia/shell.json".source = shellConfigFile;
+        "caelestia/shell.json".source = shellConfigFile;
       })
       (lib.mkIf (shouldGenerate cfg.cli) {
-        ".config/caelestia/cli.json".source = cliConfigFile;
+        "caelestia/cli.json".source = cliConfigFile;
       })
     ];
 
     systemd.user.services.caelestia = lib.mkIf cfg.systemd.enable {
-      description = "Caelestia Shell Service";
-      after       = [ cfg.systemd.target ];
-      partOf      = [ cfg.systemd.target ];
-      wantedBy    = [ cfg.systemd.target ];
-      unitConfig  = lib.mkIf (shouldGenerate cfg) {
-        X-Restart-Triggers = "${shellConfigFile}";
+      Unit = {
+        Description = "Caelestia Shell Service";
+        After       = [ cfg.systemd.target ];
+        PartOf      = [ cfg.systemd.target ];
       };
-      environment = { QT_QPA_PLATFORM = "wayland"; } // cfg.systemd.environment;
-      serviceConfig = {
+      Install.WantedBy = [ cfg.systemd.target ];
+      Service = {
         Type           = "exec";
         ExecStart      = "${cfg.package}/bin/caelestia-shell";
         Restart        = "on-failure";
         RestartSec     = "5s";
         TimeoutStopSec = "5s";
         Slice          = "session.slice";
+        Environment = lib.mapAttrsToList (k: v: "${k}=${v}")
+          ({ QT_QPA_PLATFORM = "wayland"; } // cfg.systemd.environment);
       };
     };
 
     systemd.user.services.caelestia-disable-gamemode = lib.mkIf cfg.disableGameModeOnBoot {
-      description = "Disable Caelestia game mode on boot";
-      after       = [ "caelestia.service" ];
-      requires    = [ "caelestia.service" ];
-      wantedBy    = [ "caelestia.service" ];
-      serviceConfig = {
+      Unit = {
+        Description = "Disable Caelestia game mode on boot";
+        After    = [ "caelestia.service" ];
+        Requires = [ "caelestia.service" ];
+      };
+      Install.WantedBy = [ "caelestia.service" ];
+      Service = {
         Type      = "oneshot";
         ExecStart = "${pkgs.writeShellScript "disable-gamemode" ''
           ${pkgs.coreutils}/bin/sleep 2

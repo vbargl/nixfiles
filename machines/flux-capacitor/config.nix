@@ -1,4 +1,9 @@
 { config, pkgs, self, ... }: {
+  imports = [
+    ../../profiles/machines/minimal.nix
+    ../../profiles/machines/stylix.nix
+  ];
+
   nixpkgs.config = { allowUnfree = true; allowUnfreePredicate = _: true; };
   nixpkgs.overlays = [ self.overlays.default ];
 
@@ -55,8 +60,6 @@
     commands = [{ command = "ALL"; options = [ "NOPASSWD" ]; }];
   }];
 
-  hjem.users.vbargl.directory = "/home/vbargl";
-
   services.k3s = {
     enable = true;
     role = "server";
@@ -96,4 +99,13 @@
   networking.firewall.allowedUDPPorts = [ 21116 ];
 
   system.stateVersion = "25.11";
+
+  nxf.users.vbargl = {
+    enable = true;
+    profiles = with config.nxf.profiles.users; [
+      minimal
+      connectivity
+      daily
+    ];
+  };
 }

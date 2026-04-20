@@ -1,9 +1,12 @@
-{ pkgs, ... }: {
-  users.users.vbargl.packages = with pkgs; [ nushell ];
-  environment.shells = [ pkgs.nushell ];
+{ lib, pkgs, config, ... }:
+let cfg = config.nxf.home.nushell;
+in {
+  options.nxf.home.nushell.enable = lib.mkEnableOption "nushell";
 
-  hjem.users.vbargl.files = {
-    ".config/nushell/env.nu".source    = ./config/env.nu;
-    ".config/nushell/config.nu".source = ./config/config.nu;
+  config = lib.mkIf cfg.enable {
+    home.packages = [ pkgs.nushell ];
+
+    xdg.configFile."nushell/env.nu".source    = ./config/env.nu;
+    xdg.configFile."nushell/config.nu".source = ./config/config.nu;
   };
 }

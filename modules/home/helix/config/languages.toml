@@ -1,0 +1,116 @@
+[language-server.yaml-language-server]
+command = "yaml-language-server"
+args = ["--stdio"]
+
+[language-server.taplo]
+command = "taplo"
+args = ["lsp", "stdio"]
+
+[language-server.json-language-server]
+command = "vscode-json-language-server"
+args = ["--stdio"]
+config.provideFormatter = true
+
+[language-server.bash-language-server]
+command = "bash-language-server"
+args = ["start"]
+
+[language-server.fish-lsp]
+command = "fish-lsp"
+args = ["start"]
+
+[language-server.nu-lsp]
+command = "nu"
+args = ["--lsp"]
+
+[language-server.nixd]
+command = "nixd"
+
+[language-server.gopls]
+command = "gopls"
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+
+[language-server.svelte-language-server]
+command = "svelteserver"
+args = ["--stdio"]
+
+[language-server.terraform-ls]
+command = "terraform-ls"
+args = ["serve"]
+
+[[language]]
+name = "yaml"
+language-servers = ["yaml-language-server"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "yaml"] }
+
+[[language]]
+name = "toml"
+language-servers = ["taplo"]
+auto-format = true
+formatter = { command = "taplo", args = ["fmt", "-"] }
+
+[[language]]
+name = "json"
+language-servers = ["json-language-server"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "json"] }
+
+[[language]]
+name = "bash"
+language-servers = ["bash-language-server"]
+auto-format = true
+formatter = { command = "shfmt", args = ["-i", "2", "-"] }
+
+[[language]]
+name = "fish"
+language-servers = ["fish-lsp"]
+
+[[language]]
+name = "nu"
+language-servers = ["nu-lsp"]
+auto-format = true
+formatter = { command = "nufmt", args = ["--stdin"] }
+
+[[language]]
+name = "markdown"
+formatter = { command = "prettier", args = ["--parser", "markdown"] }
+
+[[language]]
+name = "nix"
+language-servers = ["nixd"]
+auto-format = true
+formatter = { command = "nixfmt" }
+
+[[language]]
+name = "go"
+language-servers = ["gopls"]
+auto-format = true
+formatter = { command = "gofumpt" }
+
+[[language]]
+name = "rust"
+language-servers = ["rust-analyzer"]
+auto-format = true
+
+[[language]]
+name = "typescript"
+language-servers = ["typescript-language-server"]
+auto-format = true
+
+[[language]]
+name = "svelte"
+language-servers = ["svelte-language-server", "typescript-language-server"]
+auto-format = true
+
+[[language]]
+name = "hcl"
+language-servers = ["terraform-ls"]
+auto-format = true
+formatter = { command = "tofu", args = ["fmt", "-"] }

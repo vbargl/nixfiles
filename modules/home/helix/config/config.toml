@@ -1,0 +1,7 @@
+theme = "rose_pine_moon"
+
+[keys.normal.space]
+B = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}"
+
+[keys.normal]
+"A-r" = ":reload"

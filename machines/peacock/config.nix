@@ -1,8 +1,10 @@
-{ pkgs, ... }:
+{ self, config, pkgs, lib, ... }:
 
 {
   imports = [
     ./hardware.nix
+    ../../profiles/machines/minimal.nix
+    ../../profiles/machines/stylix.nix
   ];
 
   # Boot
@@ -146,4 +148,33 @@
   virtualisation.spiceUSBRedirection.enable = true;
   programs.virt-manager.enable = true;
 
+  nxf.users.vbargl = {
+    enable = true;
+    profiles = with config.nxf.profiles.users; [
+      minimal
+      dev
+      daily
+      connectivity
+      media
+      games
+      cluster-management
+    ];
+  };
+
+  home-manager.users.vbargl = {
+    nxf.home.caelestia = {
+      enable = true;
+      settings = {
+        services.useFahrenheit      = lib.mkDefault false;
+        services.useTwelveHourClock = lib.mkDefault false;
+        bar.status.showAudio        = lib.mkDefault true;
+        general.apps.explorer       = lib.mkDefault [ "dolphin" ];
+        general.apps.terminal       = lib.mkDefault [ "ghostty" ];
+        paths.wallpaperDir          = lib.mkDefault "${self}/assets/wallpapers";
+      };
+    };
+    nxf.home.helix.enable = true;
+  };
+
+  users.users.vbargl.extraGroups = [ "input" "libvirtd" "docker" "nordvpn" config.nxf.nixos.localzone.group ];
 }

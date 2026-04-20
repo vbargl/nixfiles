@@ -5,42 +5,33 @@
     specialArgs = { inherit inputs self; };
 
     modules = [
-      inputs.hjem.nixosModules.hjem
+      self.nixosModules.default
+
+      inputs.home-manager.nixosModules.home-manager
       inputs.stylix.nixosModules.stylix
       inputs.agenix.nixosModules.default
       inputs.disko.nixosModules.disko
       inputs.chaotic.nixosModules.default
 
       ./config.nix
-      ../../users/vbargl
 
-    ] ++ (with self.modules.machines; [
-      options
-      zerotier
-      nordvpn
-    ]) ++ (with self.profiles.machines; [
-      minimal
-      stylix
-    ]) ++ (with self.profiles.users; [
-      minimal
-      daily
-      connectivity
-      media
-      games
-    ]) ++ [({ config, pkgs, lib, ... }: {
-      nixpkgs.config = { allowUnfree = true; allowUnfreePredicate = _: true; };
-      nixpkgs.overlays = [ self.overlays.default ];
+      ({ config, pkgs, lib, ... }: {
+        nixpkgs.config = { allowUnfree = true; allowUnfreePredicate = _: true; };
+        nixpkgs.overlays = [ self.overlays.default ];
 
-      environment.capabilities.gui = true;
+        environment.capabilities.gui = true;
 
-      nix.settings = {
-        experimental-features = [ "nix-command" "flakes" ];
-        trusted-users = [ "root" "vbargl" ];
-      };
+        nix.settings = {
+          experimental-features = [ "nix-command" "flakes" ];
+          trusted-users = [ "root" "vbargl" ];
+        };
 
-      hjem.users.vbargl.directory = "/home/vbargl";
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.extraSpecialArgs = { inherit inputs self; };
 
-      system.stateVersion = "25.11";
-    })];
+        system.stateVersion = "25.11";
+      })
+    ];
   };
 }

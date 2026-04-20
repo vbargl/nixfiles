@@ -1,6 +1,5 @@
-{ pkgs, lib, hasCapability, ... }:
-lib.mkIf (hasCapability "gui") {
-  users.users.vbargl.packages = with pkgs; [
+{ pkgs, ... }: {
+  home.packages = with pkgs; [
     wl-clipboard
     alsa-utils
     xwayland
@@ -27,13 +26,11 @@ lib.mkIf (hasCapability "gui") {
     nerd-fonts.jetbrains-mono
   ];
 
-  fonts.fontconfig.enable = true;
-
   systemd.user.services.syncthing = {
-    description = "Syncthing";
-    wantedBy = [ "default.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.syncthing}/bin/syncthing serve --no-browser --config /home/vbargl/.config/syncthing --data /home/vbargl/Sync";
+    Unit.Description = "Syncthing";
+    Install.WantedBy = [ "default.target" ];
+    Service = {
+      ExecStart = "${pkgs.syncthing}/bin/syncthing serve --no-browser --config %h/.config/syncthing --data %h/Sync";
       Restart = "on-failure";
     };
   };

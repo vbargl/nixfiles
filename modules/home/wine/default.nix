@@ -1,8 +1,13 @@
-{ pkgs, lib, hasCapability, ... }:
-lib.mkIf (hasCapability "gui") {
-  users.users.vbargl.packages = with pkgs; [
-    wineWowPackages.waylandFull # Wine with native Wayland + 32/64-bit support
-    bottles                     # GTK4 GUI manager, isolated prefixes per app
-    winetricks                  # CLI installer for Windows components (.NET, VCR, etc.)
-  ];
+{ lib, pkgs, config, ... }:
+let cfg = config.nxf.home.wine;
+in {
+  options.nxf.home.wine.enable = lib.mkEnableOption "Wine + Bottles + winetricks (user tooling)";
+
+  config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      wineWowPackages.waylandFull
+      bottles
+      winetricks
+    ];
+  };
 }

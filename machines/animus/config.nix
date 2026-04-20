@@ -29,18 +29,6 @@
     6443
   ];
 
-  users.users.vbargl = {
-    isNormalUser = true;
-    hashedPassword = null;
-    shell = pkgs.nushell;
-    extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMFNlZYlDjje/aX9WSd0WyCvEQaqHvbX/5/IWvXkntdu bargl.vojtech.net"
-    ];
-  };
-
-  environment.shells = [ pkgs.nushell ];
-
   security.sudo.extraRules = [
     {
       users = [ "vbargl" ];
@@ -90,4 +78,17 @@
   };
 
   system.stateVersion = "25.11";
+
+  nxf.users.vbargl = {
+    enable = true;
+    profiles = with config.nxf.profiles.users; [
+      minimal
+      cluster-management
+    ];
+  };
+
+  # animus-specific extras for vbargl (on top of user-module defaults)
+  users.users.vbargl.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMFNlZYlDjje/aX9WSd0WyCvEQaqHvbX/5/IWvXkntdu bargl.vojtech.net"
+  ];
 }

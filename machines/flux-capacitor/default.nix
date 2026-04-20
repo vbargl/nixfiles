@@ -5,7 +5,9 @@
     specialArgs = { inherit inputs self; };
 
     modules = [
-      inputs.hjem.nixosModules.hjem
+      self.nixosModules.default
+
+      inputs.home-manager.nixosModules.home-manager
       inputs.stylix.nixosModules.stylix
       inputs.agenix.nixosModules.default
       inputs.disko.nixosModules.disko
@@ -14,18 +16,11 @@
       ./disko.nix
       ./config.nix
 
-      ../../users/vbargl
-
-    ] ++ (with self.modules.machines; [
-      options
-      zerotier
-    ]) ++ (with self.profiles.machines; [
-      minimal
-      stylix
-    ]) ++ (with self.profiles.users; [
-      minimal
-      connectivity
-      daily
-    ]);
+      ({ config, pkgs, lib, ... }: {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.extraSpecialArgs = { inherit inputs self; };
+      })
+    ];
   };
 }

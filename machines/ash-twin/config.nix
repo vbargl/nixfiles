@@ -1,9 +1,11 @@
-{ config, lib, pkgs, inputs, ... }:
+{ self, config, lib, pkgs, inputs, ... }:
 
 {
   imports = [
     ./hardware.nix
     ./disko.nix
+    ../../profiles/machines/minimal.nix
+    ../../profiles/machines/stylix.nix
   ];
 
   ##################################
@@ -169,4 +171,15 @@
     git
     util-linux
   ];
+
+  nxf.users.vbargl = {
+    enable = true;
+    profiles = with config.nxf.profiles.users; [
+      minimal
+      daily
+      connectivity
+      media
+      games
+    ];
+  };
 }
