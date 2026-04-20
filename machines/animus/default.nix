@@ -5,7 +5,6 @@
     specialArgs = { inherit inputs self; };
 
     modules = [
-      self.nixosModules.default
       inputs.home-manager.nixosModules.home-manager
 
       ./config.nix

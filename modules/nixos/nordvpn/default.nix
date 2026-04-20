@@ -1,13 +1,5 @@
-{ lib, config, pkgs, ... }:
-let
-  cfg = config.nxf.nixos.nordvpn;
-in
 {
-  options.nxf.nixos.nordvpn = {
-    enable = lib.mkEnableOption "NordVPN service";
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.nixosModules.nordvpn = { pkgs, ... }: {
     users.groups.nordvpn = { };
 
     services.resolved.enable = true;

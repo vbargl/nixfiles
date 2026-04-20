@@ -1,4 +1,5 @@
 {
+  self,
   config,
   lib,
   pkgs,
@@ -7,8 +8,10 @@
 }:
 
 {
-  imports = [
+  imports = lib.flatten [
     ./hardware.nix
+    self.nixosModules.capabilities
+    self.nixosModules.profiles-shim
   ];
 
   nix.settings.trusted-users = [

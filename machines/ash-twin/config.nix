@@ -1,10 +1,15 @@
 { self, config, lib, pkgs, inputs, ... }:
 
 {
-  imports = [
+  imports = lib.flatten [
     ./hardware.nix
     ./disko.nix
+    self.nixosModules.capabilities
+    self.nixosModules.profiles-shim
     self.stacks.minimal
+    self.nixosModules.stylix
+    self.nixosModules.zerotier
+    self.nixosModules.nordvpn
   ];
 
   ##################################
@@ -39,13 +44,9 @@
   networking.firewall.allowedTCPPorts = [ 22 ];
 
   # ZeroTier (module adds zt+ to trustedInterfaces automatically)
-  nxf.nixos.zerotier = {
-    enable = true;
-    networkIds = [ "b6079f73c6fe0b88" ];
-  };
+  nxf.nixos.zerotier.networkIds = [ "b6079f73c6fe0b88" ];
 
   # NordVPN (outbound-only; no extra firewall rules needed)
-  nxf.nixos.nordvpn.enable = true;
 
   # Wifi — configured in a second pass once ash-twin's host key is known to agenix.
   # See plan Task 11.

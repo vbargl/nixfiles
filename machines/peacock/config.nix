@@ -1,9 +1,18 @@
 { self, config, pkgs, lib, ... }:
 
 {
-  imports = [
+  imports = lib.flatten [
     ./hardware.nix
+    self.nixosModules.capabilities
+    self.nixosModules.profiles-shim
     self.stacks.minimal
+    self.nixosModules.stylix
+    self.nixosModules.zerotier
+    self.nixosModules.nordvpn
+    self.nixosModules.snx-rs
+    self.nixosModules.localzone
+    self.nixosModules.wine
+    self.nixosModules.snd_hda_intel
   ];
 
   # Boot
@@ -14,15 +23,7 @@
   boot.zfs.extraPools = [ "data" ];
 
   # VPN services
-  nxf.nixos.zerotier = {
-    enable = true;
-    networkIds = [ "b6079f73c6fe0b88" ];
-  };
-  nxf.nixos.snx-rs.enable = true;
-  nxf.nixos.nordvpn.enable = true;
-  nxf.nixos.localzone.enable = true;
-  nxf.nixos.wine.enable = true;
-  nxf.nixos.snd_hda_intel.enable = true;
+  nxf.nixos.zerotier.networkIds = [ "b6079f73c6fe0b88" ];
 
   programs.steam = {
     enable = true;

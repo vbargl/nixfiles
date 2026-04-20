@@ -1,10 +1,8 @@
-# modules/nixos/stylix/default.nix — transitional form (Task 3).
-# Task 4 rewraps as a flake-parts module and drops the mkIf guard
-# (importing becomes the opt-in).
-{ inputs, pkgs, lib, config, ... }: {
-  imports = [ inputs.stylix.nixosModules.stylix ];
+{ inputs, ... }:
+{
+  flake.nixosModules.stylix = { pkgs, ... }: {
+    imports = [ inputs.stylix.nixosModules.stylix ];
 
-  config = lib.mkIf config.environment.capabilities.gui {
     stylix = {
       enable = true;
       enableReleaseChecks = false;

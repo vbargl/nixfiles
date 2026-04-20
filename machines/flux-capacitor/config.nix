@@ -1,22 +1,21 @@
-{ config, pkgs, self, ... }: {
-  imports = [
+{ config, pkgs, self, lib, ... }: {
+  imports = lib.flatten [
+    self.nixosModules.capabilities
+    self.nixosModules.profiles-shim
     self.stacks.minimal
+    self.nixosModules.stylix
+    self.nixosModules.zerotier
   ];
 
   nixpkgs.config = { allowUnfree = true; allowUnfreePredicate = _: true; };
   nixpkgs.overlays = [ self.overlays.default ];
-
-  environment.capabilities.gui = true;
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     trusted-users = [ "root" "vbargl" ];
   };
 
-  nxf.nixos.zerotier = {
-    enable = true;
-    networkIds = [ "b6079f73c6fe0b88" ];
-  };
+  nxf.nixos.zerotier.networkIds = [ "b6079f73c6fe0b88" ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 20;

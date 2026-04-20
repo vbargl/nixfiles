@@ -9,8 +9,6 @@ in
     specialArgs = { inherit inputs self; };
 
     modules = [
-      self.nixosModules.default
-
       inputs.home-manager.nixosModules.home-manager
       inputs.agenix.nixosModules.default
       inputs.disko.nixosModules.disko
