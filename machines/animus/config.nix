@@ -11,7 +11,7 @@
   imports = lib.flatten [
     ./hardware.nix
     self.nixosModules.capabilities
-    self.nixosModules.profiles-shim
+    self.users.vbargl.nixos
   ];
 
   nix.settings.trusted-users = [
@@ -82,12 +82,12 @@
 
   system.stateVersion = "25.11";
 
-  nxf.users.vbargl = {
-    enable = true;
-    profiles = with config.nxf.profiles.users; [
+  home-manager.users.vbargl = {
+    imports = with self.users.vbargl.modules; [
       minimal
       cluster-management
     ];
+    home.stateVersion = "25.11";
   };
 
   # animus-specific extras for vbargl (on top of user-module defaults)

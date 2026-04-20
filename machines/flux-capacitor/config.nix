@@ -1,7 +1,7 @@
 { config, pkgs, self, lib, ... }: {
   imports = lib.flatten [
     self.nixosModules.capabilities
-    self.nixosModules.profiles-shim
+    self.users.vbargl.nixos
     self.stacks.minimal
     self.nixosModules.stylix
     self.nixosModules.zerotier
@@ -98,13 +98,13 @@
 
   system.stateVersion = "25.11";
 
-  nxf.users.vbargl = {
-    enable = true;
-    profiles = with config.nxf.profiles.users; [
+  home-manager.users.vbargl = {
+    imports = with self.users.vbargl.modules; [
       minimal
       gui
       connectivity
       daily
     ];
+    home.stateVersion = "25.11";
   };
 }

@@ -5,7 +5,7 @@
     ./hardware.nix
     ./disko.nix
     self.nixosModules.capabilities
-    self.nixosModules.profiles-shim
+    self.users.vbargl.nixos
     self.stacks.minimal
     self.nixosModules.stylix
     self.nixosModules.zerotier
@@ -172,9 +172,8 @@
     util-linux
   ];
 
-  nxf.users.vbargl = {
-    enable = true;
-    profiles = with config.nxf.profiles.users; [
+  home-manager.users.vbargl = {
+    imports = with self.users.vbargl.modules; [
       minimal
       gui
       daily
@@ -182,5 +181,6 @@
       media
       games
     ];
+    home.stateVersion = "25.11";
   };
 }

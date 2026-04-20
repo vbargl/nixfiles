@@ -4,7 +4,7 @@
   imports = lib.flatten [
     ./hardware.nix
     self.nixosModules.capabilities
-    self.nixosModules.profiles-shim
+    self.users.vbargl.nixos
     self.stacks.minimal
     self.nixosModules.stylix
     self.nixosModules.zerotier
@@ -156,22 +156,21 @@
   virtualisation.spiceUSBRedirection.enable = true;
   programs.virt-manager.enable = true;
 
-  nxf.users.vbargl = {
-    enable = true;
-    profiles = with config.nxf.profiles.users; [
-      minimal
-      gui
-      dev
-      daily
-      connectivity
-      media
-      games
-      cluster-management
-    ];
-  };
-
   home-manager.users.vbargl = {
-    imports = [ self.homeModules.caelestia ];
+    imports = lib.flatten [
+      (with self.users.vbargl.modules; [
+        minimal
+        gui
+        dev
+        daily
+        connectivity
+        media
+        games
+        cluster-management
+      ])
+      self.homeModules.caelestia
+    ];
+    home.stateVersion = "25.11";
 
     nxf.home.caelestia.settings = {
       services.useFahrenheit      = lib.mkDefault false;

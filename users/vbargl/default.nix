@@ -1,32 +1,35 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.nxf.users.vbargl;
-in {
-  options.nxf.users.vbargl = {
-    enable = lib.mkEnableOption "vbargl system user";
-    profiles = lib.mkOption {
-      type = with lib.types; listOf deferredModule;
-      default = [ ];
-      description = "home-manager profile modules applied to vbargl.";
+{ self, inputs, ... }:
+{
+  flake.users.vbargl = {
+    # NixOS-only: system user account, shell, groups, ssh keys.
+    nixos = { pkgs, ... }: {
+      users.users.vbargl = {
+        isNormalUser = true;
+        shell        = pkgs.nushell;
+        extraGroups  = [ "wheel" "networkmanager" "video" "audio" ];
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICzfPQUzXyHZZL1sfHzCA0o5eKdsL+/XrHrVJnAt9liI vbargl@peacock"
+        ];
+      };
+      environment.shells = [ pkgs.nushell ];
     };
+
+    # Reusable HM modules discovered from ./users/vbargl/modules/
+    # nixlite.import with a raw path returns walkNested keyed by filename.
+    modules = inputs.nixlite.import ./modules;
   };
 
-  config = lib.mkIf cfg.enable {
-    users.users.vbargl = {
-      isNormalUser = true;
-      shell = pkgs.nushell;
-      extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICzfPQUzXyHZZL1sfHzCA0o5eKdsL+/XrHrVJnAt9liI vbargl@peacock"
-      ];
-    };
-
-    environment.shells = [ pkgs.nushell ];
-
-    home-manager.users.vbargl = {
-      home.stateVersion = "25.11";
-      home.username = "vbargl";
-      home.homeDirectory = "/home/vbargl";
-      imports = cfg.profiles;
-    };
+  # Standalone HM: nh home build .#vbargl
+  flake.homeConfigurations.vbargl = inputs.home-manager.lib.homeManagerConfiguration {
+    pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+    extraSpecialArgs = { inherit self inputs; };
+    modules = [
+      ./modules/minimal.nix
+      {
+        home.username      = "vbargl";
+        home.homeDirectory = "/home/vbargl";
+        home.stateVersion  = "25.11";
+      }
+    ];
   };
 }

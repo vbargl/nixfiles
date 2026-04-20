@@ -76,6 +76,7 @@
       inputs.home-manager.flakeModules.home-manager
       ./lib
       ./machines
+      ./users
       ./packages
       ./overlays
       ./devshells
@@ -86,25 +87,6 @@
 
     perSystem = { system, ... }: {
       checks = inputs.deploy-rs.lib.${system}.deployChecks self.deploy;
-    };
-
-    # Transitional shim (Task 4 → Task 6). Keeps `nxf.profiles` alive, pulls in
-    # ./users (NixOS module) and home-manager.sharedModules so machines can keep
-    # using `nxf.users.vbargl.profiles = with config.nxf.profiles.users; [ … ];`
-    # until Tasks 5 and 6 migrate home and user wiring. REMOVE in Task 6.
-    flake.nixosModules.profiles-shim = { lib, ... }: {
-      imports = inputs.nixlite.import { path = [ ./users ]; flatten = true; };
-
-      options.nxf.profiles = lib.mkOption {
-        type = lib.types.attrsOf (lib.types.attrsOf lib.types.deferredModule);
-        readOnly = true;
-        description = "TRANSITIONAL: profiles registry; removed in Task 6.";
-      };
-
-      config.nxf.profiles = {
-        machines = inputs.nixlite.import ./profiles/machines;
-        users    = inputs.nixlite.import ./profiles/users;
-      };
     };
   });
 }
