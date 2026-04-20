@@ -1,7 +1,6 @@
 { config, pkgs, self, ... }: {
   imports = [
     self.stacks.minimal
-    ../../profiles/machines/stylix.nix
   ];
 
   nixpkgs.config = { allowUnfree = true; allowUnfreePredicate = _: true; };

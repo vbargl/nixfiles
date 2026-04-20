@@ -4,7 +4,6 @@
   imports = [
     ./hardware.nix
     self.stacks.minimal
-    ../../profiles/machines/stylix.nix
   ];
 
   # Boot

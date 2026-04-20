@@ -12,7 +12,6 @@ in
       self.nixosModules.default
 
       inputs.home-manager.nixosModules.home-manager
-      inputs.stylix.nixosModules.stylix
       inputs.agenix.nixosModules.default
       inputs.disko.nixosModules.disko
       inputs.chaotic.nixosModules.default

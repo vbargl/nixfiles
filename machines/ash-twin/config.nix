@@ -5,7 +5,6 @@
     ./hardware.nix
     ./disko.nix
     self.stacks.minimal
-    ../../profiles/machines/stylix.nix
   ];
 
   ##################################
