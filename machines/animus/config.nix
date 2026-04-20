@@ -12,14 +12,10 @@
     ./hardware.nix
     self.nixosModules.capabilities
     self.users.vbargl.nixos
+    self.stacks.host
   ];
 
   nxf.machine.capabilities = [ ];
-
-  nix.settings.trusted-users = [
-    "root"
-    "vbargl"
-  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

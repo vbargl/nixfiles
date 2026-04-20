@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.nixosModules.stylix = { pkgs, ... }: {
+  flake.nixosModules.stylix = { self, pkgs, ... }: {
     imports = [ inputs.stylix.nixosModules.stylix ];
 
     stylix = {
@@ -9,7 +9,7 @@
 
       base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
 
-      image = ../../../assets/wallpapers/wallpaper.jpg;
+      image = "${self}/assets/wallpapers/wallpaper.jpg";
 
       fonts = {
         monospace = {

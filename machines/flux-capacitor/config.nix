@@ -1,7 +1,10 @@
 { config, pkgs, self, lib, ... }: {
   imports = lib.flatten [
+    ./hardware.nix
+    ./disko.nix
     self.nixosModules.capabilities
     self.users.vbargl.nixos
+    self.stacks.host
     self.stacks.minimal
     self.nixosModules.stylix
     self.nixosModules.zerotier
@@ -10,14 +13,6 @@
   nxf.machine.capabilities = with self.lib.capabilities; [
     gui audio bluetooth wifi
   ];
-
-  nixpkgs.config = { allowUnfree = true; allowUnfreePredicate = _: true; };
-  nixpkgs.overlays = [ self.overlays.default ];
-
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    trusted-users = [ "root" "vbargl" ];
-  };
 
   nxf.nixos.zerotier.networkIds = [ "b6079f73c6fe0b88" ];
 

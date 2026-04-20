@@ -5,6 +5,7 @@
     ./hardware.nix
     self.nixosModules.capabilities
     self.users.vbargl.nixos
+    self.stacks.host
     self.stacks.minimal
     self.nixosModules.stylix
     self.nixosModules.zerotier
@@ -14,6 +15,8 @@
     self.nixosModules.wine
     self.nixosModules.snd_hda_intel
   ];
+
+  system.stateVersion = "25.05";
 
   nxf.machine.capabilities = with self.lib.capabilities; [
     gui gpu audio bluetooth virtualization zfs

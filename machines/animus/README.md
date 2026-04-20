@@ -13,7 +13,7 @@ Lightweight NixOS VM for testing K3s and Longhorn deployments before applying to
 - **Type:** QEMU VM (nixos-rebuild build-vm)
 - **K3s:** Single-node server, local-storage and traefik disabled
 - **Longhorn deps:** open-iscsi, nfs-utils, iscsiadm symlink fix
-- **No:** home-manager, zerotier, agenix, disko
+- **No:** zerotier, agenix, disko
 
 ## Usage
 

@@ -12,16 +12,7 @@ in
       inputs.home-manager.nixosModules.home-manager
       inputs.agenix.nixosModules.default
       inputs.disko.nixosModules.disko
-
-      ./hardware.nix
-      ./disko.nix
       ./config.nix
-
-      ({ config, pkgs, lib, ... }: {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = { inherit inputs self; };
-      })
     ];
   };
 

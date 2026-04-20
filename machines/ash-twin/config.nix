@@ -6,11 +6,14 @@
     ./disko.nix
     self.nixosModules.capabilities
     self.users.vbargl.nixos
+    self.stacks.host
     self.stacks.minimal
     self.nixosModules.stylix
     self.nixosModules.zerotier
     self.nixosModules.nordvpn
   ];
+
+  system.stateVersion = "25.11";
 
   nxf.machine.capabilities = with self.lib.capabilities; [
     gui gpu audio bluetooth zfs
