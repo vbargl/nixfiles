@@ -79,7 +79,6 @@
     systems = [ "x86_64-linux" ];
 
     imports = [
-      ./lib
       ./nxf-modules.nix
       ./machines
       ./packages
