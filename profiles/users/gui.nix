@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  nxf.home.zen-browser.enable = true;
+{ self, pkgs, ... }: {
+  imports = [ self.homeModules.zen-browser ];
 
   home.packages = with pkgs; [
     ghostty

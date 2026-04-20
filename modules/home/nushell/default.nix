@@ -1,9 +1,5 @@
-{ lib, pkgs, config, ... }:
-let cfg = config.nxf.home.nushell;
-in {
-  options.nxf.home.nushell.enable = lib.mkEnableOption "nushell";
-
-  config = lib.mkIf cfg.enable {
+{
+  flake.homeModules.nushell = { pkgs, ... }: {
     home.packages = [ pkgs.nushell ];
 
     xdg.configFile."nushell/env.nu".source    = ./config/env.nu;

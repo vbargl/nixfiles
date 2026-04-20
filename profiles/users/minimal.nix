@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  nxf.home.nushell.enable = true;
+{ self, pkgs, ... }: {
+  imports = [ self.homeModules.nushell ];
 
   home.packages = with pkgs; [
     moreutils

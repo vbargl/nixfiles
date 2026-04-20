@@ -171,16 +171,15 @@
   };
 
   home-manager.users.vbargl = {
-    nxf.home.caelestia = {
-      enable = true;
-      settings = {
-        services.useFahrenheit      = lib.mkDefault false;
-        services.useTwelveHourClock = lib.mkDefault false;
-        bar.status.showAudio        = lib.mkDefault true;
-        general.apps.explorer       = lib.mkDefault [ "dolphin" ];
-        general.apps.terminal       = lib.mkDefault [ "ghostty" ];
-        paths.wallpaperDir          = lib.mkDefault "${self}/assets/wallpapers";
-      };
+    imports = [ self.homeModules.caelestia ];
+
+    nxf.home.caelestia.settings = {
+      services.useFahrenheit      = lib.mkDefault false;
+      services.useTwelveHourClock = lib.mkDefault false;
+      bar.status.showAudio        = lib.mkDefault true;
+      general.apps.explorer       = lib.mkDefault [ "dolphin" ];
+      general.apps.terminal       = lib.mkDefault [ "ghostty" ];
+      paths.wallpaperDir          = lib.mkDefault "${self}/assets/wallpapers";
     };
   };
 

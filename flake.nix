@@ -73,12 +73,13 @@
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } ({ self, lib, ... }: {
     imports = lib.flatten [
+      inputs.home-manager.flakeModules.home-manager
       ./lib
       ./machines
       ./packages
       ./overlays
       ./devshells
-      (inputs.nixlite.import { path = [ ./stacks ./modules/nixos ]; flatten = true; })
+      (inputs.nixlite.import { path = [ ./stacks ./modules/nixos ./modules/home ]; flatten = true; })
     ];
 
     systems = [ "x86_64-linux" ];
@@ -103,13 +104,6 @@
       config.nxf.profiles = {
         machines = inputs.nixlite.import ./profiles/machines;
         users    = inputs.nixlite.import ./profiles/users;
-      };
-
-      # Home-manager sharedModules wiring is retained here transitionally; Task 5
-      # rewraps home modules and this moves into their emitters.
-      config.home-manager.sharedModules = inputs.nixlite.import {
-        path = [ ./modules/home ];
-        flatten = true;
       };
     };
   });

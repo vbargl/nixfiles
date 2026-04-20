@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ self, pkgs, ... }: {
+  imports = [ self.homeModules.helix ];
+
   home.packages = with pkgs; [
     jujutsu
     git
@@ -29,6 +31,5 @@
     nix-direnv.enable = true;
   };
 
-  nxf.home.helix.enable = true;
   nxf.home.helix.includeDevTooling = true;
 }
