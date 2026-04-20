@@ -1,5 +1,5 @@
 { lib, pkgs, hasCapability, ... }: {
-  imports = [ ../../modules/users/nushell ../../modules/users/zen-browser ];
+  imports = [ ../../modules/home/nushell ../../modules/home/zen-browser ];
 
   users.users.vbargl.packages = with pkgs; lib.mkMerge [
     [
