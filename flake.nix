@@ -80,6 +80,7 @@
 
     imports = [
       ./lib
+      ./nxf-modules.nix
       ./machines
       ./packages
       ./deploy.nix
