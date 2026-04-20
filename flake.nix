@@ -3,6 +3,7 @@
     Nix flake for managing NixOS configurations.
     Uses flake-parts for modular output composition.
     Machines include home management via home-manager.
+    Options live under the `nxf.*` namespace.
   '';
 
   inputs = {
