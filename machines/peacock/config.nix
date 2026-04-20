@@ -13,13 +13,13 @@
   boot.zfs.extraPools = [ "data" ];
 
   # VPN services
-  modules.zerotier = {
+  nxf.nixos.zerotier = {
     enable = true;
     networkIds = [ "b6079f73c6fe0b88" ];
   };
-  modules.snx-rs.enable = true;
-  modules.nordvpn.enable = true;
-  modules.localzone.enable = true;
+  nxf.nixos.snx-rs.enable = true;
+  nxf.nixos.nordvpn.enable = true;
+  nxf.nixos.localzone.enable = true;
 
   # Networking
   networking.hostId = "430ec17c";

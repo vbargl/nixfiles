@@ -9,7 +9,7 @@
     trusted-users = [ "root" "vbargl" ];
   };
 
-  modules.zerotier = {
+  nxf.nixos.zerotier = {
     enable = true;
     networkIds = [ "b6079f73c6fe0b88" ];
   };

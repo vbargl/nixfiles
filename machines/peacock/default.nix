@@ -45,16 +45,16 @@
         trusted-users = [ "root" "vbargl" ];
       };
 
-      modules.zerotier = {
+      nxf.nixos.zerotier = {
         enable = true;
         networkIds = [ "b6079f73c6fe0b88" ];
       };
-      modules.snx-rs.enable = true;
-      modules.nordvpn.enable = true;
-      modules.localzone.enable = true;
-      modules.wine.enable = true;
+      nxf.nixos.snx-rs.enable = true;
+      nxf.nixos.nordvpn.enable = true;
+      nxf.nixos.localzone.enable = true;
+      nxf.nixos.wine.enable = true;
 
-      modules.caelestia = {
+      nxf.home.caelestia = {
         enable = true;
         settings = {
           services.useFahrenheit      = lib.mkDefault false;
@@ -66,7 +66,7 @@
         };
       };
 
-      users.users.vbargl.extraGroups = [ "input" "libvirtd" "docker" "nordvpn" config.modules.localzone.group ];
+      users.users.vbargl.extraGroups = [ "input" "libvirtd" "docker" "nordvpn" config.nxf.nixos.localzone.group ];
 
       hjem.users.vbargl.directory = "/home/vbargl";
 

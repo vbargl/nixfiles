@@ -38,13 +38,13 @@
   networking.firewall.allowedTCPPorts = [ 22 ];
 
   # ZeroTier (module adds zt+ to trustedInterfaces automatically)
-  modules.zerotier = {
+  nxf.nixos.zerotier = {
     enable = true;
     networkIds = [ "b6079f73c6fe0b88" ];
   };
 
   # NordVPN (outbound-only; no extra firewall rules needed)
-  modules.nordvpn.enable = true;
+  nxf.nixos.nordvpn.enable = true;
 
   # Wifi — configured in a second pass once ash-twin's host key is known to agenix.
   # See plan Task 11.

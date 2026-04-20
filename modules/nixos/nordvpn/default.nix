@@ -1,9 +1,9 @@
 { lib, config, pkgs, ... }:
 let
-  cfg = config.modules.nordvpn;
+  cfg = config.nxf.nixos.nordvpn;
 in
 {
-  options.modules.nordvpn = {
+  options.nxf.nixos.nordvpn = {
     enable = lib.mkEnableOption "NordVPN service";
   };
 

@@ -1,10 +1,10 @@
 { lib, config, inputs, pkgs, ... }:
 let
-  cfg = config.modules.localzone;
+  cfg = config.nxf.nixos.localzone;
   pkg = inputs.localzone.packages.${pkgs.system}.default;
 in
 {
-  options.modules.localzone = {
+  options.nxf.nixos.localzone = {
     enable = lib.mkEnableOption "localzone local DNS resolver";
 
     group = lib.mkOption {

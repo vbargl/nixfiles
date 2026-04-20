@@ -1,7 +1,7 @@
 { lib, pkgs, config, inputs, self, ... }:
 let
   inherit (pkgs.stdenv.hostPlatform) system;
-  cfg = config.modules.caelestia;
+  cfg = config.nxf.home.caelestia;
 
   mkConfig = c:
     lib.pipe (if c.extraConfig != "" then c.extraConfig else "{}") [
@@ -15,7 +15,7 @@ let
   cliConfigFile   = pkgs.writeText "caelestia-cli.json"   (mkConfig cfg.cli);
 in
 {
-  options.modules.caelestia = {
+  options.nxf.home.caelestia = {
     enable = lib.mkEnableOption "Caelestia shell";
 
     package = lib.mkOption {

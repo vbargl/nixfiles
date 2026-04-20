@@ -1,9 +1,9 @@
 { lib, config, ... }:
 let
-  cfg = config.modules.zerotier;
+  cfg = config.nxf.nixos.zerotier;
 in
 {
-  options.modules.zerotier = {
+  options.nxf.nixos.zerotier = {
     enable = lib.mkEnableOption "ZeroTier VPN";
     networkIds = lib.mkOption {
       type = lib.types.listOf lib.types.str;

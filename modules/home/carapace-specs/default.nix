@@ -1,9 +1,9 @@
 { lib, pkgs, config, ... }:
 let
-  cfg = config.programs.carapace-specs;
+  cfg = config.nxf.home.carapace-specs;
 in
 {
-  options.programs.carapace-specs = {
+  options.nxf.home.carapace-specs = {
     enable = lib.mkEnableOption "custom carapace completion specs";
 
     package = lib.mkOption {

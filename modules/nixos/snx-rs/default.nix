@@ -1,9 +1,9 @@
 { lib, config, pkgs, ... }:
 let
-  cfg = config.modules.snx-rs;
+  cfg = config.nxf.nixos.snx-rs;
 in
 {
-  options.modules.snx-rs = {
+  options.nxf.nixos.snx-rs = {
     enable = lib.mkEnableOption "snx-rs VPN client service";
   };
 

@@ -1,9 +1,9 @@
 { lib, config, ... }:
 let
-  cfg = config.modules.wine;
+  cfg = config.nxf.nixos.wine;
 in
 {
-  options.modules.wine = {
+  options.nxf.nixos.wine = {
     enable = lib.mkEnableOption "Wine 32-bit GPU support";
   };
 
