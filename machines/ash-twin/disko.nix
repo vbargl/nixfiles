@@ -14,7 +14,10 @@
               type = "filesystem";
               format = "vfat";
               mountpoint = "/boot";
-              mountOptions = [ "fmask=0022" "dmask=0022" ];
+              mountOptions = [
+                "fmask=0022"
+                "dmask=0022"
+              ];
             };
           };
           zfs = {
@@ -30,7 +33,7 @@
 
     zpool.rpool = {
       type = "zpool";
-      mode = "";                    # single-disk pool; no raidz/mirror
+      mode = ""; # single-disk pool; no raidz/mirror
       rootFsOptions = {
         compression = "zstd";
         atime = "off";

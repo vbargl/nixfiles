@@ -1,7 +1,10 @@
 # stacks/minimal.nix
 {
   flake.stacks.minimal = {
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
 
     nix.settings.substituters = [
       "https://chaotic-nyx.cachix.org"

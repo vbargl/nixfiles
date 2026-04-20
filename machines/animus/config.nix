@@ -15,6 +15,13 @@
     self.stacks.host
   ];
 
+  nixpkgs.overlays = with self.overlays; [
+    pinchtab
+    nushell
+    rclone
+    deploy-rs
+  ];
+
   nxf.machine.capabilities = [ ];
 
   boot.loader.systemd-boot.enable = true;
@@ -81,7 +88,7 @@
   system.stateVersion = "25.11";
 
   home-manager.users.vbargl = {
-    imports = with self.users.vbargl.modules; [
+    imports = with self.users.vbargl.profiles; [
       minimal
       cluster-management
     ];

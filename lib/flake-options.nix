@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   options.flake = {
     stacks = lib.mkOption {
       type = lib.types.lazyAttrsOf lib.types.raw;
@@ -16,6 +17,12 @@
       type = lib.types.lazyAttrsOf lib.types.raw;
       default = { };
       description = "Registry of machine capability values.";
+    };
+
+    nixconfig = lib.mkOption {
+      type = lib.types.attrs;
+      default = { };
+      description = "Shared `nixpkgs.config` used by overlays and consumers.";
     };
   };
 }

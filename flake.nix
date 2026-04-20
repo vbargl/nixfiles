@@ -78,19 +78,27 @@
       {
         imports = lib.flatten [
           inputs.home-manager.flakeModules.home-manager
-          (inputs.nixlite.import [
-            ./lib
-            ./machines
-            ./users
-            ./overlays
-            ./stacks
-            ./modules/nixos
-            ./modules/home
-            ./devshells
-          ])
+          (inputs.nixlite.import {
+            flatten = true;
+            path = [
+              ./lib
+              ./machines
+              ./users
+              ./overlays
+              ./stacks
+              ./modules
+              ./devshells
+              ./packages
+            ];
+          })
         ];
 
         systems = [ "x86_64-linux" ];
+
+        flake.nixconfig = {
+          allowUnfree = true;
+          allowUnfreePredicate = _: true;
+        };
 
         perSystem =
           { system, ... }:

@@ -1,0 +1,21 @@
+{
+  flake.nixosModules.snx-rs =
+    { pkgs, ... }:
+    {
+      systemd.services.snx-rs = {
+        description = "snx-rs Check Point VPN client";
+        after = [ "network-online.target" ];
+        wants = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
+        path = with pkgs; [
+          iproute2
+          kmod
+        ];
+        serviceConfig = {
+          ExecStart = "${pkgs.snx-rs}/bin/snx-rs -m command -l debug";
+          Restart = "on-failure";
+          RestartSec = 1;
+        };
+      };
+    };
+}

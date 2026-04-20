@@ -6,6 +6,12 @@ let
   flux-capacitor = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEa+f6pnQ4OmIdzK4q+l771PbYD5XqsxT9JN8p4uSx1A root@ant";
 in
 {
-  "wifi-vodafone-psk.age".publicKeys = [ vbargl flux-capacitor ];
-  "k3s-token.age".publicKeys = [ vbargl flux-capacitor ];
+  "wifi-vodafone-psk.age".publicKeys = [
+    vbargl
+    flux-capacitor
+  ];
+  "k3s-token.age".publicKeys = [
+    vbargl
+    flux-capacitor
+  ];
 }

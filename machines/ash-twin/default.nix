@@ -21,7 +21,12 @@ in
     hostname = "ash-twin";
     sshUser = "vbargl";
     user = "root";
-    sshOpts = [ "-o" "StrictHostKeyChecking=no" "-i" "/home/vbargl/.ssh/osobni/ash-twin.sshkey" ];
+    sshOpts = [
+      "-o"
+      "StrictHostKeyChecking=no"
+      "-i"
+      "/home/vbargl/.ssh/osobni/ash-twin.sshkey"
+    ];
     magicRollback = true;
     autoRollback = true;
     confirmTimeout = 300;

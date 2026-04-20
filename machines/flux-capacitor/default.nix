@@ -20,7 +20,10 @@ in
     hostname = "flux-capacitor";
     sshUser = "vbargl";
     user = "root";
-    sshOpts = [ "-o" "StrictHostKeyChecking=no" ];
+    sshOpts = [
+      "-o"
+      "StrictHostKeyChecking=no"
+    ];
     magicRollback = true;
     autoRollback = true;
     confirmTimeout = 300;

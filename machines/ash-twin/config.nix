@@ -1,4 +1,11 @@
-{ self, config, lib, pkgs, inputs, ... }:
+{
+  self,
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = lib.flatten [
@@ -15,8 +22,21 @@
 
   system.stateVersion = "25.11";
 
+  nixpkgs.overlays = with self.overlays; [
+    pinchtab
+    nushell
+    rclone
+    snx-rs
+    nordvpn
+    zen-browser
+  ];
+
   nxf.machine.capabilities = with self.lib.capabilities; [
-    gui gpu audio bluetooth zfs
+    gui
+    gpu
+    audio
+    bluetooth
+    zfs
   ];
 
   ##################################
@@ -30,7 +50,7 @@
   boot.kernelPackages = pkgs.linuxPackages_cachyos;
 
   boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.package = pkgs.zfs_cachyos;   # userspace tooling must match the kernel module
+  boot.zfs.package = pkgs.zfs_cachyos; # userspace tooling must match the kernel module
   services.zfs.autoScrub.enable = true;
   services.zfs.trim.enable = true;
 
@@ -41,7 +61,7 @@
   # Identity & networking
   ##################################
   networking.hostName = "ash-twin";
-  networking.hostId = "83814d0c";                     # required for ZFS; fixed once
+  networking.hostId = "83814d0c"; # required for ZFS; fixed once
 
   networking.networkmanager.enable = true;
   services.resolved.enable = true;
@@ -67,7 +87,7 @@
 
   services.xserver.xkb = {
     layout = "cz,cz,sk";
-    variant = ",bksl,";                   # plain cz (qwertz, primary); cz with \| on bksl; classic sk
+    variant = ",bksl,"; # plain cz (qwertz, primary); cz with \| on bksl; classic sk
     options = "grp:alt_shift_toggle";
   };
 
@@ -75,15 +95,25 @@
   # Users & SSH
   ##################################
   # Extends homes/vbargl.nix — adds input + nordvpn groups and the ash-twin client key.
-  users.users.vbargl.extraGroups = [ "input" "nordvpn" ];
+  users.users.vbargl.extraGroups = [
+    "input"
+    "nordvpn"
+  ];
   users.users.vbargl.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGY6gtMnjI0Kdree5NzQirQwostYEA0RiSZCcGp8dKMY ash-twin"
   ];
 
-  security.sudo.extraRules = [{
-    users = [ "vbargl" ];
-    commands = [{ command = "ALL"; options = [ "NOPASSWD" ]; }];
-  }];
+  security.sudo.extraRules = [
+    {
+      users = [ "vbargl" ];
+      commands = [
+        {
+          command = "ALL";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 
   services.openssh = {
     enable = true;
@@ -104,7 +134,7 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
-    open = false;   # chaotic-nyx's open module fails to build vs cachyos 6.18 (upstream known failure)
+    open = false; # chaotic-nyx's open module fails to build vs cachyos 6.18 (upstream known failure)
     nvidiaSettings = true;
     powerManagement.enable = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -125,7 +155,7 @@
     enable = true;
     user = "vbargl";
   };
-  services.displayManager.defaultSession = "plasma";   # gamescope session available; launched from Plasma (Steam Big Picture) per-game
+  services.displayManager.defaultSession = "plasma"; # gamescope session available; launched from Plasma (Steam Big Picture) per-game
   services.desktopManager.plasma6.enable = true;
 
   ##################################
@@ -180,11 +210,11 @@
   ];
 
   home-manager.users.vbargl = {
-    imports = with self.users.vbargl.modules; [
+    imports = with self.users.vbargl.profiles; [
       minimal
       gui
       daily
-      connectivity
+      vpn
       media
       games
     ];
