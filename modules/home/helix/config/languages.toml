@@ -94,10 +94,52 @@ language-servers = ["gopls"]
 auto-format = true
 formatter = { command = "gofumpt" }
 
+[language.debugger]
+name = "go"
+transport = "tcp"
+command = "dlv"
+args = ["dap"]
+port-arg = "-l 127.0.0.1:{}"
+
+[[language.debugger.templates]]
+name = "source"
+request = "launch"
+args = { mode = "debug", program = "{0}" }
+completion = [ { name = "entrypoint", completion = "filename", default = "." } ]
+
+[[language.debugger.templates]]
+name = "binary"
+request = "launch"
+args = { mode = "exec", program = "{0}" }
+completion = [ { name = "binary", completion = "filename" } ]
+
+[[language.debugger.templates]]
+name = "test"
+request = "launch"
+args = { mode = "test", program = "{0}" }
+completion = [ { name = "test", completion = "filename", default = "." } ]
+
 [[language]]
 name = "rust"
 language-servers = ["rust-analyzer"]
 auto-format = true
+
+[language.debugger]
+name = "lldb-dap"
+transport = "stdio"
+command = "lldb-dap"
+
+[[language.debugger.templates]]
+name = "binary"
+request = "launch"
+args = { program = "{0}" }
+completion = [ { name = "binary", completion = "filename" } ]
+
+[[language.debugger.templates]]
+name = "binary (with args)"
+request = "launch"
+args = { program = "{0}", args = ["{1}"] }
+completion = [ { name = "binary", completion = "filename" }, { name = "args" } ]
 
 [[language]]
 name = "typescript"
