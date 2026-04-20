@@ -22,6 +22,7 @@
   nxf.nixos.snx-rs.enable = true;
   nxf.nixos.nordvpn.enable = true;
   nxf.nixos.localzone.enable = true;
+  nxf.nixos.wine.enable = true;
 
   # Networking
   networking.hostId = "430ec17c";
