@@ -71,22 +71,31 @@
     nixlite.url = "github:vbargl/nixlite";
   };
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } ({ self, lib, ... }: {
-    imports = lib.flatten [
-      inputs.home-manager.flakeModules.home-manager
-      ./lib
-      ./machines
-      ./users
-      ./packages
-      ./overlays
-      ./devshells
-      (inputs.nixlite.import { path = [ ./stacks ./modules/nixos ./modules/home ]; flatten = true; })
-    ];
+  outputs =
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      { self, lib, ... }:
+      {
+        imports = lib.flatten [
+          inputs.home-manager.flakeModules.home-manager
+          (inputs.nixlite.import [
+            ./lib
+            ./machines
+            ./users
+            ./overlays
+            ./stacks
+            ./modules/nixos
+            ./modules/home
+          ])
+        ];
 
-    systems = [ "x86_64-linux" ];
+        systems = [ "x86_64-linux" ];
 
-    perSystem = { system, ... }: {
-      checks = inputs.deploy-rs.lib.${system}.deployChecks self.deploy;
-    };
-  });
+        perSystem =
+          { system, ... }:
+          {
+            checks = inputs.deploy-rs.lib.${system}.deployChecks self.deploy;
+          };
+      }
+    );
 }

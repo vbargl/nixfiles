@@ -9,7 +9,7 @@
 
       base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
 
-      image = "${self}/assets/wallpapers/wallpaper.jpg";
+      image = "${self}/users/vbargl/assets/wallpapers/wallpaper.jpg";
 
       fonts = {
         monospace = {
