@@ -1,6 +1,10 @@
-{ self, inputs, ... }: {
+{ self, inputs, ... }:
+let
+  system = "x86_64-linux";
+in
+{
   flake.nixosConfigurations.ash-twin = inputs.nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
+    inherit system;
 
     specialArgs = { inherit inputs self; };
 
@@ -33,5 +37,19 @@
         system.stateVersion = "25.11";
       })
     ];
+  };
+
+  flake.deploy.nodes.ash-twin = {
+    hostname = "ash-twin";
+    sshUser = "vbargl";
+    user = "root";
+    sshOpts = [ "-o" "StrictHostKeyChecking=no" "-i" "/home/vbargl/.ssh/osobni/ash-twin.sshkey" ];
+    magicRollback = true;
+    autoRollback = true;
+    confirmTimeout = 300;
+
+    profiles.system.path =
+      inputs.deploy-rs.lib.${system}.activate.nixos
+        self.nixosConfigurations.ash-twin;
   };
 }

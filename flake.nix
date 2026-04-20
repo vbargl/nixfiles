@@ -71,16 +71,35 @@
     nixlite.url = "github:vbargl/nixlite";
   };
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-    systems = [ "x86_64-linux" ];
-
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } ({ self, lib, ... }: {
     imports = [
       ./machines
       ./packages
       ./overlays
       ./devshells
-      ./deploy
+      ({ lib, ... }: {
+        options.flake.deploy = lib.mkOption {
+          type = lib.types.submoduleWith {
+            modules = [{
+              freeformType = lib.types.lazyAttrsOf lib.types.raw;
+              options.nodes = lib.mkOption {
+                type = lib.types.lazyAttrsOf lib.types.raw;
+                default = { };
+                description = "deploy-rs nodes.";
+              };
+            }];
+          };
+          default = { };
+          description = "deploy-rs top-level attribute (nodes, etc).";
+        };
+      })
     ];
+
+    systems = [ "x86_64-linux" ];
+
+    perSystem = { system, ... }: {
+      checks = inputs.deploy-rs.lib.${system}.deployChecks self.deploy;
+    };
 
     flake.nixosModules.default = { lib, config, ... }: {
       imports =
@@ -102,5 +121,5 @@
           lib.attrValues (inputs.nixlite.import ./modules/home);
       };
     };
-  };
+  });
 }
