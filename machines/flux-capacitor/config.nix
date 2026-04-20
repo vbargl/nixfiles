@@ -1,6 +1,6 @@
 { config, pkgs, self, ... }: {
   imports = [
-    ../../profiles/machines/minimal.nix
+    self.stacks.minimal
     ../../profiles/machines/stylix.nix
   ];
 

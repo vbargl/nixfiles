@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware.nix
-    ../../profiles/machines/minimal.nix
+    self.stacks.minimal
     ../../profiles/machines/stylix.nix
   ];
 

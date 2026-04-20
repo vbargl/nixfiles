@@ -78,7 +78,7 @@
       ./packages
       ./overlays
       ./devshells
-    ];
+    ] ++ builtins.attrValues (inputs.nixlite.import ./stacks);
 
     systems = [ "x86_64-linux" ];
 
