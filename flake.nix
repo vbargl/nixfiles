@@ -86,6 +86,7 @@
             ./stacks
             ./modules/nixos
             ./modules/home
+            ./devshells
           ])
         ];
 
