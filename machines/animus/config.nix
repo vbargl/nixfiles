@@ -14,6 +14,8 @@
     self.users.vbargl.nixos
   ];
 
+  nxf.machine.capabilities = [ ];
+
   nix.settings.trusted-users = [
     "root"
     "vbargl"

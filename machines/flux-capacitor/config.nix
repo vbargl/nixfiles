@@ -7,6 +7,10 @@
     self.nixosModules.zerotier
   ];
 
+  nxf.machine.capabilities = with self.lib.capabilities; [
+    gui audio bluetooth wifi
+  ];
+
   nixpkgs.config = { allowUnfree = true; allowUnfreePredicate = _: true; };
   nixpkgs.overlays = [ self.overlays.default ];
 

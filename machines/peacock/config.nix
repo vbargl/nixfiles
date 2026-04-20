@@ -15,6 +15,10 @@
     self.nixosModules.snd_hda_intel
   ];
 
+  nxf.machine.capabilities = with self.lib.capabilities; [
+    gui gpu audio bluetooth virtualization zfs
+  ];
+
   # Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

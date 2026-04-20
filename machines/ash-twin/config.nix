@@ -12,6 +12,10 @@
     self.nixosModules.nordvpn
   ];
 
+  nxf.machine.capabilities = with self.lib.capabilities; [
+    gui gpu audio bluetooth zfs
+  ];
+
   ##################################
   # Boot & kernel
   ##################################
