@@ -517,11 +517,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1776440733,
-        "narHash": "sha256-798K+dVkEC+C6/5fD8sq0On5fTQpCyzhkj7698gM0PY=",
+        "lastModified": 1776695539,
+        "narHash": "sha256-KwX3Vp6eMFljrrjPmuqY67SmdR7HJd29sFGgkI2ILqA=",
         "owner": "vbargl",
         "repo": "nixlite",
-        "rev": "9fa1e7c5d022e635d1607bdcb0a2d32864d95319",
+        "rev": "451b71e34f94f65f87b2c6a5bfc70db233c63506",
         "type": "github"
       },
       "original": {

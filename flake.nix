@@ -72,13 +72,14 @@
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } ({ self, lib, ... }: {
-    imports = [
+    imports = lib.flatten [
       ./lib
       ./machines
       ./packages
       ./overlays
       ./devshells
-    ] ++ builtins.attrValues (inputs.nixlite.import ./stacks);
+      (inputs.nixlite.import { path = [ ./stacks ]; flatten = true; })
+    ];
 
     systems = [ "x86_64-linux" ];
 
@@ -87,9 +88,10 @@
     };
 
     flake.nixosModules.default = { lib, config, ... }: {
-      imports =
-        (lib.attrValues (inputs.nixlite.import ./modules/nixos))
-        ++ (lib.attrValues (inputs.nixlite.import ./users));
+      imports = inputs.nixlite.import {
+        path = [ ./modules/nixos ./users ];
+        flatten = true;
+      };
 
       options.nxf.profiles = lib.mkOption {
         type = lib.types.attrsOf (lib.types.attrsOf lib.types.deferredModule);
@@ -102,8 +104,10 @@
           machines = inputs.nixlite.import ./profiles/machines;
           users    = inputs.nixlite.import ./profiles/users;
         };
-        home-manager.sharedModules =
-          lib.attrValues (inputs.nixlite.import ./modules/home);
+        home-manager.sharedModules = inputs.nixlite.import {
+          path = [ ./modules/home ];
+          flatten = true;
+        };
       };
     };
   });

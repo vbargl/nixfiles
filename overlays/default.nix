@@ -1,1 +1,5 @@
-{ inputs, ... }: { imports = builtins.attrValues (inputs.nixlite.import ./.); }
+{
+  imports = [
+    ./nixpkgs.nix
+  ];
+}

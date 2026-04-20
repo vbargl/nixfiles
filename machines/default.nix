@@ -1,3 +1,8 @@
-{ inputs, ... }: {
-  imports = builtins.attrValues (inputs.nixlite.import ./.);
+{
+  imports = [
+    ./animus
+    ./ash-twin
+    ./flux-capacitor
+    ./peacock
+  ];
 }
