@@ -23,6 +23,13 @@
   nxf.nixos.nordvpn.enable = true;
   nxf.nixos.localzone.enable = true;
   nxf.nixos.wine.enable = true;
+  nxf.nixos.snd_hda_intel.enable = true;
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
 
   # Networking
   networking.hostId = "430ec17c";
@@ -153,6 +160,7 @@
     enable = true;
     profiles = with config.nxf.profiles.users; [
       minimal
+      gui
       dev
       daily
       connectivity
@@ -174,7 +182,6 @@
         paths.wallpaperDir          = lib.mkDefault "${self}/assets/wallpapers";
       };
     };
-    nxf.home.helix.enable = true;
   };
 
   users.users.vbargl.extraGroups = [ "input" "libvirtd" "docker" "nordvpn" config.nxf.nixos.localzone.group ];

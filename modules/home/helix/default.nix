@@ -26,6 +26,9 @@ let
     lldb
     typescript-language-server
     svelte-language-server
+    jdt-language-server
+    kotlin-language-server
+    metals
     terraform-ls
     opentofu
   ];

@@ -104,6 +104,7 @@
     enable = true;
     profiles = with config.nxf.profiles.users; [
       minimal
+      gui
       connectivity
       daily
     ];

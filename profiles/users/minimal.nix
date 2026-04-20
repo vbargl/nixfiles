@@ -1,6 +1,5 @@
 { pkgs, ... }: {
   nxf.home.nushell.enable = true;
-  nxf.home.zen-browser.enable = true;
 
   home.packages = with pkgs; [
     moreutils
@@ -22,11 +21,6 @@
     carapace
     yazi
     zellij
-    ghostty
-    walker
-    firefox
-    thunderbird
-    peazip
   ];
 
   programs.fish.enable = true;

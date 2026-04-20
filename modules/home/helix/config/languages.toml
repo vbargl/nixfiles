@@ -114,3 +114,58 @@ name = "hcl"
 language-servers = ["terraform-ls"]
 auto-format = true
 formatter = { command = "tofu", args = ["fmt", "-"] }
+
+[language-server.jdtls]
+command = "jdt-language-server"
+args = ["-configuration", "/home/vbargl/.cache/jdtls/config", "-data", "/home/vbargl/.cache/jdtls/workspace"]
+
+[language-server.kotlin-language-server]
+command = "kotlin-language-server"
+
+[language-server.metals]
+command = "metals"
+
+[[language]]
+name = "gomod"
+language-servers = ["gopls"]
+
+[[language]]
+name = "gowork"
+language-servers = ["gopls"]
+
+[[language]]
+name = "gotmpl"
+language-servers = ["gopls"]
+
+[[language]]
+name = "tsx"
+language-servers = ["typescript-language-server"]
+auto-format = true
+
+[[language]]
+name = "javascript"
+language-servers = ["typescript-language-server"]
+auto-format = true
+
+[[language]]
+name = "jsx"
+language-servers = ["typescript-language-server"]
+auto-format = true
+
+[[language]]
+name = "java"
+language-servers = ["jdtls"]
+
+[[language]]
+name = "kotlin"
+language-servers = ["kotlin-language-server"]
+
+[[language]]
+name = "scala"
+language-servers = ["metals"]
+
+[[language]]
+name = "tfvars"
+language-servers = ["terraform-ls"]
+auto-format = true
+formatter = { command = "tofu", args = ["fmt", "-"] }
