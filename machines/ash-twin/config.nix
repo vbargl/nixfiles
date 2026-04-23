@@ -15,6 +15,7 @@
     self.users.vbargl.nixos
     self.stacks.host
     self.stacks.minimal
+    self.stacks.desktop
     self.nixosModules.stylix
     self.nixosModules.zerotier
     self.userModules.vbargl.nordvpn
@@ -62,9 +63,6 @@
   ##################################
   networking.hostName = "ash-twin";
   networking.hostId = "83814d0c"; # required for ZFS; fixed once
-
-  networking.networkmanager.enable = true;
-  services.resolved.enable = true;
 
   # Firewall (explicitly enabled; Steam ports opened via programs.steam.* below)
   networking.firewall.enable = true;
@@ -170,27 +168,6 @@
   programs.gamescope.enable = true;
   programs.gamemode.enable = true;
   hardware.steam-hardware.enable = true;
-
-  ##################################
-  # Audio
-  ##################################
-  security.rtkit.enable = true;
-  services.pulseaudio.enable = false;
-  services.pipewire = {
-    enable = true;
-    audio.enable = true;
-    pulse.enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
-  };
-
-  ##################################
-  # Bluetooth (controllers, headphones)
-  ##################################
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
 
   ##################################
   # Secrets (agenix) — wifi wired in second pass (Task 11)
