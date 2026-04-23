@@ -13,6 +13,7 @@
     self.users.vbargl.nixos
     self.stacks.host
     self.stacks.minimal
+    self.stacks.desktop
     self.nixosModules.stylix
     self.nixosModules.zerotier
   ];
@@ -41,7 +42,6 @@
   boot.kernelModules = [ "dm_crypt" ];
 
   networking.hostName = "flux-capacitor";
-  networking.networkmanager.enable = true;
   networking.networkmanager.ensureProfiles.environmentFiles = [
     config.age.secrets.wifi-vodafone-psk.path
   ];
@@ -82,16 +82,6 @@
     layout = "cz";
     variant = "qwerty";
   };
-
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    audio.enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
-  };
-
-  hardware.bluetooth.enable = true;
 
   security.sudo.extraRules = [
     {
