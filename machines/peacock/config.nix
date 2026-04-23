@@ -15,7 +15,7 @@
     self.stacks.minimal
     self.nixosModules.stylix
     self.nixosModules.zerotier
-    self.nixosModules.nordvpn
+    self.userModules.vbargl.nordvpn
     self.nixosModules.snx-rs
     self.nixosModules.localzone
     self.nixosModules.wine
@@ -226,7 +226,6 @@
     "input"
     "libvirtd"
     "docker"
-    "nordvpn"
     config.nxf.nixos.localzone.group
   ];
 }

@@ -17,7 +17,7 @@
     self.stacks.minimal
     self.nixosModules.stylix
     self.nixosModules.zerotier
-    self.nixosModules.nordvpn
+    self.userModules.vbargl.nordvpn
   ];
 
   system.stateVersion = "25.11";
@@ -94,10 +94,9 @@
   ##################################
   # Users & SSH
   ##################################
-  # Extends homes/vbargl.nix — adds input + nordvpn groups and the ash-twin client key.
+  # Extends homes/vbargl.nix — adds input group and the ash-twin client key.
   users.users.vbargl.extraGroups = [
     "input"
-    "nordvpn"
   ];
   users.users.vbargl.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGY6gtMnjI0Kdree5NzQirQwostYEA0RiSZCcGp8dKMY ash-twin"
