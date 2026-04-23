@@ -13,6 +13,7 @@
     self.users.vbargl.nixos
     self.stacks.host
     self.stacks.minimal
+    self.stacks.desktop
     self.nixosModules.stylix
     self.nixosModules.zerotier
     self.userModules.vbargl.nordvpn
@@ -62,11 +63,8 @@
   # Networking
   networking.hostId = "430ec17c";
   networking.hostName = "peacock";
-  networking.networkmanager.enable = true;
   networking.firewall.enable = false;
   networking.networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
-
-  services.resolved.enable = true;
 
   # Desktop
   services.xserver.enable = true;
@@ -81,53 +79,42 @@
   services.logind.settings.Login.HandleLidSwitch = "ignore";
   programs.hyprland.enable = true;
 
-  # Audio
-  security.rtkit.enable = true;
-  services.pulseaudio.enable = false;
-  services.pipewire = {
-    enable = true;
-    audio.enable = true;
-    pulse.enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
-    wireplumber.extraConfig."10-disable-hdmi-nodes" = {
-      "monitor.alsa.rules" = [
-        {
-          matches = [
-            { "node.name" = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-output-3"; }
-            { "node.name" = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-output-4"; }
-            { "node.name" = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-output-5"; }
-            { "node.name" = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-output-31"; }
-            { "node.name" = "alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-input-6"; }
-          ];
-          actions.update-props."node.disabled" = true;
-        }
-      ];
-    };
-    wireplumber.extraConfig."11-rename-nodes" = {
-      "monitor.alsa.rules" = [
-        {
-          matches = [
-            { "node.name" = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-output-0"; }
-          ];
-          actions.update-props."node.description" = "Speakers";
-        }
-        {
-          matches = [
-            { "node.name" = "alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-input-0"; }
-          ];
-          actions.update-props."node.description" = "Headset Microphone";
-        }
-        {
-          matches = [
-            { "node.name" = "alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-input-7"; }
-          ];
-          actions.update-props."node.description" = "Internal Microphone";
-        }
-      ];
-    };
+  # Audio (wireplumber rules — peacock-specific node layout; common pipewire setup in stacks.desktop)
+  services.pipewire.wireplumber.extraConfig."10-disable-hdmi-nodes" = {
+    "monitor.alsa.rules" = [
+      {
+        matches = [
+          { "node.name" = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-output-3"; }
+          { "node.name" = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-output-4"; }
+          { "node.name" = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-output-5"; }
+          { "node.name" = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-output-31"; }
+          { "node.name" = "alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-input-6"; }
+        ];
+        actions.update-props."node.disabled" = true;
+      }
+    ];
+  };
+  services.pipewire.wireplumber.extraConfig."11-rename-nodes" = {
+    "monitor.alsa.rules" = [
+      {
+        matches = [
+          { "node.name" = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-output-0"; }
+        ];
+        actions.update-props."node.description" = "Speakers";
+      }
+      {
+        matches = [
+          { "node.name" = "alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-input-0"; }
+        ];
+        actions.update-props."node.description" = "Headset Microphone";
+      }
+      {
+        matches = [
+          { "node.name" = "alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.pro-input-7"; }
+        ];
+        actions.update-props."node.description" = "Internal Microphone";
+      }
+    ];
   };
   hardware.alsa.enablePersistence = true;
 
@@ -138,10 +125,6 @@
       intel-media-driver
     ];
   };
-
-  # Bluetooth
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
 
   # Security
   security.sudo.extraRules = [
