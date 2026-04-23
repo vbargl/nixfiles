@@ -1,3 +1,4 @@
+{ self, ... }:
 {
   flake.nixosModules.nordvpn =
     { pkgs, ... }:
@@ -52,6 +53,15 @@
           SocketGroup = "nordvpn";
           SocketMode = "0770";
         };
+      };
+    };
+
+  perUser =
+    { name, ... }:
+    {
+      userModules.nordvpn = {
+        imports = [ self.nixosModules.nordvpn ];
+        users.users.${name}.extraGroups = [ "nordvpn" ];
       };
     };
 }
