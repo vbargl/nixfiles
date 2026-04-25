@@ -1,7 +1,12 @@
 { inputs, ... }:
 {
   flake.nixosModules.stylix =
-    { self, pkgs, ... }:
+    {
+      lib,
+      self,
+      pkgs,
+      ...
+    }:
     {
       imports = [ inputs.stylix.nixosModules.stylix ];
 
@@ -30,7 +35,20 @@
           size = 24;
         };
 
+        targets.qt.platform = lib.mkForce "kde";
         targets.gnome.enable = false;
       };
+
+      home-manager.sharedModules = [
+        {
+          stylix.targets.qt.enable = lib.mkForce false;
+
+          qt = {
+            enable = true;
+            platformTheme.name = "kde";
+            style.name = "breeze";
+          };
+        }
+      ];
     };
 }

@@ -17,6 +17,7 @@
 
   nixpkgs.overlays = with self.overlays; [
     pinchtab
+    jujutsu
     nushell
     rclone
     deploy-rs

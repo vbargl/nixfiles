@@ -24,6 +24,7 @@
 
   nixpkgs.overlays = with self.overlays; [
     pinchtab
+    jujutsu
     nushell
     rclone
     snx-rs

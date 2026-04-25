@@ -4,5 +4,6 @@
     zerotierone
     snx-rs
     nordvpn
+    wireguard-tools
   ];
 }

@@ -1,12 +1,8 @@
 {
-  lib,
   pkgs,
-  config,
   ...
 }:
 let
-  cfg = config.nxf.home.helix;
-
   basePackages = with pkgs; [
     yaml-language-server
     taplo
@@ -39,19 +35,17 @@ let
   ];
 in
 {
-  options.nxf.home.helix.includeDevTooling = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = "Install go/rust/ts/svelte/terraform language servers and formatters.";
-  };
-
   config = {
     home.sessionVariables = {
       EDITOR = "hx";
       VISUAL = "hx";
     };
 
-    home.packages = [ pkgs.helix ] ++ basePackages ++ lib.optionals cfg.includeDevTooling devPackages;
+    home.packages = builtins.concatLists [
+      (with pkgs; [ helix ])
+      basePackages
+      devPackages
+    ];
 
     xdg.configFile."helix/config.toml".source = ./config/config.toml;
     xdg.configFile."helix/languages.toml".source = ./config/languages.toml;

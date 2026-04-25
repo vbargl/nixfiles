@@ -1,8 +1,14 @@
 {
   flake.nixosModules.nix =
-    { self, ... }:
+    { self, inputs, ... }:
     {
       nixpkgs.config = self.nixconfig;
+
+      nix.registry = {
+        vbargl.flake = self;
+        nixpkgs.flake = inputs.nixpkgs;
+        unstable.flake = inputs.unstable;
+      };
 
       nix.settings = {
         experimental-features = [

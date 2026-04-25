@@ -15,3 +15,9 @@ let carapace_completer = {|spans: list<string>|
 }
 
 $env.config.completions.external.completer = $carapace_completer
+
+$env.config.hooks.env_change.PWD = (
+  $env.config.hooks.env_change.PWD? | default [] | append {|before, after|
+    direnv export json | from json --strict | default {} | load-env
+  }
+)

@@ -12,6 +12,7 @@
     ngrok
     kind
     nodejs
+    # bore-cli
     pinchtab
     vscode
     code-cursor
@@ -24,6 +25,7 @@
     realvnc-vnc-viewer
     remmina
     google-chrome
+    bubblewrap
     p11-kit
   ];
 

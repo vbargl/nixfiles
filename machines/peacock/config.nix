@@ -9,23 +9,26 @@
 {
   imports = lib.flatten [
     ./hardware.nix
-    self.nixosModules.capabilities
-    self.users.vbargl.nixos
+
     self.stacks.baremetal
     self.stacks.desktop
+    self.nixosModules.capabilities
     self.nixosModules.stylix
     self.nixosModules.zerotier
-    self.userModules.vbargl.nordvpn
     self.nixosModules.snx-rs
     self.nixosModules.localzone
     self.nixosModules.wine
     self.nixosModules.snd_hda_intel
+
+    self.users.vbargl.nixos
+    self.userModules.vbargl.nordvpn
   ];
 
   system.stateVersion = "25.05";
 
   nixpkgs.overlays = with self.overlays; [
     pinchtab
+    jujutsu
     nushell
     rclone
     snx-rs
@@ -71,12 +74,16 @@
   services.greetd = {
     enable = true;
     settings.default_session = {
-      command = "${pkgs.hyprland}/bin/Hyprland";
+      command = "${pkgs.uwsm}/bin/uwsm start -F -- ${config.programs.hyprland.package}/bin/Hyprland";
       user = "vbargl";
     };
   };
   services.logind.settings.Login.HandleLidSwitch = "ignore";
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    xwayland.enable = true;
+  };
 
   # Audio (wireplumber rules — peacock-specific node layout; common pipewire setup in stacks.desktop)
   services.pipewire.wireplumber.extraConfig."10-disable-hdmi-nodes" = {
@@ -191,6 +198,7 @@
         cluster-management
       ])
       self.users.vbargl.packages.caelestia
+      self.users.vbargl.packages.wine
     ];
     home.stateVersion = "25.11";
 
