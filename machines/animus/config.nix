@@ -12,7 +12,7 @@
     ./hardware.nix
     self.nixosModules.capabilities
     self.users.vbargl.nixos
-    self.stacks.host
+    self.stacks.vm
   ];
 
   nixpkgs.overlays = with self.overlays; [

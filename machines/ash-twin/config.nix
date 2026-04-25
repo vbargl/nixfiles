@@ -13,8 +13,7 @@
     ./disko.nix
     self.nixosModules.capabilities
     self.users.vbargl.nixos
-    self.stacks.host
-    self.stacks.minimal
+    self.stacks.baremetal
     self.stacks.desktop
     self.nixosModules.stylix
     self.nixosModules.zerotier

@@ -11,9 +11,8 @@
     ./disko.nix
     self.nixosModules.capabilities
     self.users.vbargl.nixos
-    self.stacks.host
-    self.stacks.minimal
-    self.stacks.desktop
+    self.stacks.baremetal
+    self.nixosModules.wifi
     self.nixosModules.stylix
     self.nixosModules.zerotier
   ];
@@ -29,8 +28,6 @@
 
   nxf.machine.capabilities = with self.lib.capabilities; [
     gui
-    audio
-    bluetooth
     wifi
   ];
 
