@@ -65,6 +65,9 @@
   # Networking
   networking.hostId = "430ec17c";
   networking.hostName = "peacock";
+  networking.extraHosts = ''
+    172.17.0.1 host.docker.internal
+  '';
   networking.firewall.enable = false;
   networking.networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
 
