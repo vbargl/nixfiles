@@ -13,6 +13,8 @@
         };
 
         postFixup = (oldAttrs.postFixup or "") + ''
+          sed -i '2iexport QT_QPA_PLATFORM=xcb' "$out/bin/WinBox"
+
           substituteInPlace "$out/share/applications/winbox.desktop" \
             --replace-fail "Exec=WinBox" "Exec=$out/bin/WinBox"
         '';
