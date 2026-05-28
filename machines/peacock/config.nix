@@ -35,6 +35,7 @@
     nordvpn
     zen-browser
     deploy-rs
+    winbox
   ];
 
   nxf.machine.capabilities = with self.lib.capabilities; [
