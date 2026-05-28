@@ -12,6 +12,11 @@
           hash = "sha256-KNNbZhwyH1thiTZUa37fZZMpJUntSpWEeI2t/zmlTY8=";
         };
 
+        postFixup = (oldAttrs.postFixup or "") + ''
+          substituteInPlace "$out/share/applications/winbox.desktop" \
+            --replace-fail "Exec=WinBox" "Exec=$out/bin/WinBox"
+        '';
+
         meta = oldAttrs.meta // {
           changelog = "https://download.mikrotik.com/routeros/winbox/${finalAttrs.version}/CHANGELOG";
         };
