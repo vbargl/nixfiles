@@ -1,8 +1,12 @@
 {
+  config,
+  lib,
   pkgs,
   ...
 }:
 let
+  cfg = config.nxf.home.helix;
+
   basePackages = with pkgs; [
     yaml-language-server
     taplo
@@ -35,6 +39,12 @@ let
   ];
 in
 {
+  options.nxf.home.helix.includeDevTooling = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Install language servers and formatters used for development work.";
+  };
+
   config = {
     home.sessionVariables = {
       EDITOR = "hx";
@@ -44,7 +54,7 @@ in
     home.packages = builtins.concatLists [
       (with pkgs; [ helix ])
       basePackages
-      devPackages
+      (lib.optionals cfg.includeDevTooling devPackages)
     ];
 
     xdg.configFile."helix/config.toml".source = ./config/config.toml;
